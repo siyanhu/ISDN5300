@@ -27,6 +27,16 @@ vector<vector<unsigned> > vecf;
 
 #pragma mark - Editting Area
 // You will need more global variables to implement color and position changes
+bool color_change_indicator = 0;
+float current_color_0 = 0.0;
+float current_color_1 = 0.1;
+float current_color_2 = 0.2;
+float current_color_3 = 0.3;
+
+int light_source_indicator = 0;
+GLfloat updown_pos = 0.0f;
+GLfloat leftright_pos = 0.0f;
+
 float get_a_random_indicator(void) {
     random_device device;
     mt19937 random_num(device());
@@ -85,9 +95,21 @@ void drawScene(void)
 //    // Here we use the first color entry as the diffuse color
 //    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffColors[0]);
     
-    float *random_color = update_color_with_a_random_value();
-    GLfloat diffColors[4] = {random_color[0], random_color[1], random_color[2], random_color[3]};
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffColors);
+    if (color_change_indicator) {
+        float *random_color = update_color_with_a_random_value();
+        GLfloat diffColors[4] = {random_color[0], random_color[1], random_color[2], random_color[3]};
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffColors);
+        
+        current_color_0 = diffColors[0];
+        current_color_1 = diffColors[1];
+        current_color_2 = diffColors[2];
+        current_color_3 = diffColors[3];
+        color_change_indicator = 0;
+    } else {
+        GLfloat diffColors[4] = {current_color_0, current_color_1, current_color_2, current_color_3};
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffColors);
+    }
+    
     
     // Define specular color and shininess
     GLfloat specColor[] = {1.0, 1.0, 1.0, 1.0};
@@ -98,11 +120,32 @@ void drawScene(void)
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
   
     // Set light properties
-
+//    void glLightfv(    GLenum light,
+//         GLenum pname,
+//         const GLfloat * params);
+    
+//    GLfloat updown_pos = 0.0f;
+//    GLfloat leftright_pos = 0.0f;
+    switch(light_source_indicator) {
+        case 1:
+            updown_pos += 0.5f;
+            break;
+        case 2:
+            updown_pos -= 0.5f;
+            break;
+        case 3:
+            leftright_pos  -= 0.5f;
+            break;
+        case 4:
+            leftright_pos += 0.5;
+            break;
+        default:
+            break;
+    }
     // Light color (RGBA)
     GLfloat Lt0diff[] = {1.0,1.0,1.0,1.0};
     // Light position
-    GLfloat Lt0pos[] = {1.0f, 1.0f, 5.0f, 1.0f};
+    GLfloat Lt0pos[] = {leftright_pos, updown_pos, 5.0f, 1.0f};
 
     glLightfv(GL_LIGHT0, GL_DIFFUSE, Lt0diff);
     glLightfv(GL_LIGHT0, GL_POSITION, Lt0pos);
@@ -127,6 +170,7 @@ void keyboardFunc( unsigned char key, int x, int y )
         break;
     case 'c':
         // add code to change color here
+        color_change_indicator = 1;
         glutDisplayFunc( drawScene );
         cout << "Smash C for no matter how many times you want xD" << key << "." << endl;
         break;
@@ -146,19 +190,23 @@ void specialFunc( int key, int x, int y )
     {
     case GLUT_KEY_UP:
         // add code to change light position
-        cout << "Unhandled key press: up arrow." << endl;
+        light_source_indicator = 1;
+        cout << "Light source moving up 0.5: up arrow." << endl;
         break;
     case GLUT_KEY_DOWN:
         // add code to change light position
-        cout << "Unhandled key press: down arrow." << endl;
+        light_source_indicator = 2;
+        cout << "Light source moving down 0.5: down arrow." << endl;
         break;
     case GLUT_KEY_LEFT:
         // add code to change light position
-        cout << "Unhandled key press: left arrow." << endl;
+        light_source_indicator = 3;
+        cout << "Light source moving left 0.5: left arrow." << endl;
         break;
     case GLUT_KEY_RIGHT:
         // add code to change light position
-        cout << "Unhandled key press: right arrow." << endl;
+        light_source_indicator = 4;
+        cout << "Light source moving right 0.5: right arrow." << endl;
         break;
     }
 
