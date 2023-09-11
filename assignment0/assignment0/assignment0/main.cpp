@@ -11,6 +11,7 @@
 #include <sstream>
 #include <vector>
 #include <random>
+#include <string>
 #include "vecmath.h"
 using namespace std;
 
@@ -37,6 +38,8 @@ int light_source_indicator = 0;
 GLfloat updown_pos = 0.0f;
 GLfloat leftright_pos = 0.0f;
 
+int load_file_indicator = 1;
+
 float get_a_random_indicator(void) {
     random_device device;
     mt19937 random_num(device());
@@ -55,6 +58,88 @@ float *update_color_with_a_random_value(void) {
 //    cout<<"Next Color: "<<indicator_first<<","<<indicator_second<<","<<indicator_third<<","<<indicator_forth<< endl;
     float r[4] = {indicator_first, indicator_second, indicator_third, indicator_forth};
     return r;
+}
+
+std::string replace_all(std::string str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+    return str;
+}
+
+bool readOBJ(const char * path) {
+    
+    FILE * file = fopen("/Users/siyanhu/GitHub/ISDN5300/assignment0/assignment0/assignment0/torus.obj", "r");
+    if(file == NULL){
+        printf("Impossible to open the file !\n");
+        return 0;
+    }
+    rewind(file);
+    char* line = NULL;
+    size_t len = 0;
+    while ((getline(&line, &len, file)) != -1) {
+        if (line[0] == 'v') {
+            Vector3f vertex;
+            string tag;
+            istringstream split_stream(line);
+            split_stream >> tag >> vertex.x() >>vertex.y() >>vertex.z();
+            ws(split_stream);
+            
+            if (tag == "v") {
+                vecv.push_back(vertex);
+            } else if (tag == "vn") {
+                vecn.push_back(vertex);
+            }
+        } else if (line[0] == 'f') {
+            string full = line;
+            string sub = full.substr(2, full.length() - 1);
+            sub = replace_all(sub, "/", " ");
+            unsigned a, b, c, d, e, f, g, h, i;
+            char* line_new = new char[sub.length() + 1];
+            strcpy(line_new, sub.c_str());
+            istringstream split_stream(sub);
+            split_stream>>a>>b>>c>>d>>e>>f>>g>>h>>i;
+            vector<unsigned> face = {a,b,c,d,e,f,g,h,i};
+            ws(split_stream);
+            vecf.push_back(face);
+        }
+    }
+    fclose(file);
+    return 1;
+}
+
+bool loadInput(char * path) {
+    // load the OBJ file here
+    bool success = readOBJ(path);
+    if (success == 0) {
+        return 0;
+    } else {
+        for(unsigned int index =0; index < vecf.size(); index++) {
+            float a = vecf[index][0];
+            float b = vecf[index][1];
+            float c = vecf[index][2];
+            float d = vecf[index][3];
+            float e = vecf[index][4];
+            float f = vecf[index][5];
+            float g = vecf[index][6];
+            float h = vecf[index][7];
+            float i = vecf[index][8];
+            
+            //do something with v[0], v[1], v[2]
+            glBegin(GL_TRIANGLES);
+            glNormal3d(vecn[c-1][0], vecn[c-1][1], vecn[c-1][2]);
+            glVertex3d(vecv[a-1][0], vecv[a-1][1], vecv[a-1][2]);
+            glNormal3d(vecn[f-1][0], vecn[f-1][1], vecn[f-1][2]);
+            glVertex3d(vecv[d-1][0], vecv[d-1][1], vecv[d-1][2]);
+            glNormal3d(vecn[i-1][0], vecn[i-1][1], vecn[i-1][2]);
+            glVertex3d(vecv[g-1][0], vecv[g-1][1], vecv[g-1][2]);
+            glEnd();
+        }
+        return 1;
+    }
+    return 0;
 }
 
 #pragma mark - Fixed Functions
@@ -152,7 +237,14 @@ void drawScene(void)
 
     // This GLUT method draws a teapot.  You should replace
     // it with code which draws the object you loaded.
-    glutSolidTeapot(1.0);
+    bool load_designated_obj = loadInput("turos.obj");
+//    if (load_file_indicator == 1) {
+//        bool load_designated_obj = loadInput("turos.obj");
+//        if (load_designated_obj == 0) {
+//            glutSolidTeapot(1.0);
+//        }
+//        load_file_indicator = 0;
+//    }
     
     // Dump the image to the screen.
     glutSwapBuffers();
@@ -240,16 +332,11 @@ void reshapeFunc(int w, int h)
     gluPerspective(50.0, 1.0, 1.0, 100.0);
 }
 
-void loadInput()
-{
-    // load the OBJ file here
-}
-
 // Main routine.
 // Set up OpenGL, define the callbacks and start the main loop
 int main( int argc, char** argv )
 {
-    loadInput();
+//    loadInput()
 
     glutInit(&argc,argv);
 
