@@ -22,6 +22,16 @@ vector<vector<unsigned> > vecf;
 
 
 // You will need more global variables to implement color and position changes
+GLdouble eyeX = 0.0;
+GLdouble eyeY = 0.0;
+GLdouble eyeZ = 5.0;
+GLdouble centerX = 0.0;
+GLdouble centerY = 0.0;
+GLdouble centerZ = 0.0;
+GLdouble upX = 0.0;
+GLdouble upY = 1.0;
+GLdouble upZ = 0.0;
+
 bool color_change_indicator = 1;
 float current_color_0 = 0.0;
 float current_color_1 = 0.1;
@@ -154,24 +164,6 @@ bool cmdOptionExists(char** begin, char** end, const std::string& option) {
     return std::find(begin, end, option) != end;
 }
 
-static GLfloat spin = 0.0;
-static GLfloat spin_speed = 1.0;
-float spin_x = 0;
-float spin_y = 1;
-float spin_z = 0;
-float translate_x = 0.0;
-float translate_y = 0.0;
-float translate_z = -30.0;
-
-void spinDisplay(void) {
-    spin = spin + spin_speed;
-    if (spin > 360.0)
-    {
-        spin = spin - 360.0;
-    }
-    glutPostRedisplay();
-}
-
 // These are convenience functions which allow us to call OpenGL 
 // methods on Vec3d objects
 inline void glVertex(const Vector3f& a)
@@ -241,6 +233,19 @@ void specialFunc(int key, int x, int y)
     glutPostRedisplay();
 }
 
+void mouseFunc(int button, int state, int x, int y) {
+    if (button == GLUT_MIDDLE_BUTTON) {
+
+    } else if (button == GLUT_LEFT_BUTTON) {
+        centerX += 1;
+        centerY += 1;
+    }
+    else if (button == GLUT_RIGHT_BUTTON) {
+        centerX -= 1;
+        centerY -= 1;
+    }
+}
+
 // This function is responsible for displaying the object.
 void drawScene(void)
 {
@@ -255,9 +260,23 @@ void drawScene(void)
 
     // Position the camera at [0,0,5], looking at [0,0,0],
     // with [0,1,0] as the up direction.
-    gluLookAt(0.0, 0.0, 5.0,
-        0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0);
+    //void gluLookAt(GLdouble eyeX,
+    //    GLdouble eyeY,
+    //    GLdouble eyeZ,
+    //    GLdouble centerX,
+    //    GLdouble centerY,
+    //    GLdouble centerZ,
+    //    GLdouble upX,
+    //    GLdouble upY,
+    //    GLdouble upZ);
+
+    gluLookAt(eyeX, eyeY, eyeZ,
+        centerX, centerY, centerZ,
+        upX, upY, upZ);
+
+    //gluLookAt(0.0, 0.0, 5.0,
+    //    0.0, 0.0, 0.0,
+    //    0.0, 1.0, 0.0);
 
     // Set material properties of object
 
@@ -404,6 +423,7 @@ int main(int argc, char** argv)
 	// Set up callback functions for key presses
 	glutKeyboardFunc(keyboardFunc); // Handles "normal" ascii symbols
 	glutSpecialFunc(specialFunc);   // Handles "special" keyboard keys
+    glutMouseFunc(mouseFunc);
 
 	 // Set up the callback function for resizing windows
 	glutReshapeFunc(reshapeFunc);
