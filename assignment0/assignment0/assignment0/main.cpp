@@ -29,7 +29,7 @@ vector<vector<unsigned> > vecf;
 
 #pragma mark - Editting Area
 // You will need more global variables to implement color and position changes
-bool color_change_indicator = 0;
+bool color_change_indicator = 1;
 float current_color_0 = 0.0;
 float current_color_1 = 0.1;
 float current_color_2 = 0.2;
@@ -38,6 +38,8 @@ float current_color_3 = 0.3;
 int light_source_indicator = 0;
 GLfloat updown_pos = 0.0f;
 GLfloat leftright_pos = 0.0f;
+
+float rotation_angle = 5.0f;
 
 string file_path = "torus.obj";
 
@@ -116,6 +118,7 @@ bool loadInput(string path_str) {
     std::filesystem::path cwd = std::filesystem::current_path() / path_str;
     cout<<cwd.string();
     path_str = cwd.string();
+    path_str = "/Users/siyanhu/GitHub/ISDN5300/assignment0/assignment0/assignment0/garg.obj";
     char* path = new char[path_str.length() + 1];
     strcpy(path, path_str.c_str());
     bool success = readOBJ(path);
@@ -173,7 +176,7 @@ inline void glNormal(const Vector3f &a)
 // This function is responsible for displaying the object.
 void drawScene(void)
 {
-    int i;
+//    int i;
 
     // Clear the rendering window
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -247,10 +250,14 @@ void drawScene(void)
 
     glLightfv(GL_LIGHT0, GL_DIFFUSE, Lt0diff);
     glLightfv(GL_LIGHT0, GL_POSITION, Lt0pos);
+    
+    //rotate
+    glRotatef(rotation_angle, 0.0f, 1.0f, 0.0f);
 
     // This GLUT method draws a teapot.  You should replace
     // it with code which draws the object you loaded.
-    bool load_designated_obj = loadInput(file_path);
+//    bool load_designated_obj = loadInput(file_path);
+    glutSolidTeapot(1.0);
     
     // Dump the image to the screen.
     glutSwapBuffers();
@@ -271,6 +278,9 @@ void keyboardFunc( unsigned char key, int x, int y )
         glutDisplayFunc( drawScene );
         cout << "Smash C for no matter how many times you want xD" << key << "." << endl;
         break;
+        case 'r':
+            rotation_angle += 5.0f;
+            break;
     default:
         cout << "Unhandled key press " << key << "." << endl;
     }
