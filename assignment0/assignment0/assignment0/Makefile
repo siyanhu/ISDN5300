@@ -1,6 +1,5 @@
 UNAME := $(shell uname)
 
-
 INCFLAGS = -I vecmath/include/
 
 FRAMEWORKS = -framework Glut
