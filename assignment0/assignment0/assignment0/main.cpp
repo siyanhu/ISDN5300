@@ -38,7 +38,7 @@ int light_source_indicator = 0;
 GLfloat updown_pos = 0.0f;
 GLfloat leftright_pos = 0.0f;
 
-int load_file_indicator = 1;
+string file_path = "torus.obj";
 
 float get_a_random_indicator(void) {
     random_device device;
@@ -71,7 +71,7 @@ std::string replace_all(std::string str, const std::string& from, const std::str
 
 bool readOBJ(const char * path) {
     
-    FILE * file = fopen("/Users/siyanhu/GitHub/ISDN5300/assignment0/assignment0/assignment0/torus.obj", "r");
+    FILE * file = fopen(path, "r");
     if(file == NULL){
         printf("Impossible to open the file !\n");
         return 0;
@@ -238,17 +238,9 @@ void drawScene(void)
     // This GLUT method draws a teapot.  You should replace
     // it with code which draws the object you loaded.
     bool load_designated_obj = loadInput("turos.obj");
-//    if (load_file_indicator == 1) {
-//        bool load_designated_obj = loadInput("turos.obj");
-//        if (load_designated_obj == 0) {
-//            glutSolidTeapot(1.0);
-//        }
-//        load_file_indicator = 0;
-//    }
     
     // Dump the image to the screen.
     glutSwapBuffers();
-
 
 }
 
@@ -337,6 +329,9 @@ void reshapeFunc(int w, int h)
 int main( int argc, char** argv )
 {
 //    loadInput()
+    
+    file_path = argv[0];
+    cout<<file_path;
 
     glutInit(&argc,argv);
 
