@@ -8,6 +8,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <filesystem>
 #include <sstream>
 #include <vector>
 #include <random>
@@ -110,8 +111,13 @@ bool readOBJ(const char * path) {
     return 1;
 }
 
-bool loadInput(char * path) {
+bool loadInput(string path_str) {
     // load the OBJ file here
+    std::filesystem::path cwd = std::filesystem::current_path() / path_str;
+    cout<<cwd.string();
+    path_str = cwd.string();
+    char* path = new char[path_str.length() + 1];
+    strcpy(path, path_str.c_str());
     bool success = readOBJ(path);
     if (success == 0) {
         return 0;
@@ -140,6 +146,19 @@ bool loadInput(char * path) {
         return 1;
     }
     return 0;
+}
+
+char* getCmdOption(char ** begin, char ** end, const std::string & option) {
+    char ** itr = std::find(begin, end, option);
+    if (itr != end && ++itr != end)
+    {
+        return *itr;
+    }
+    return 0;
+}
+
+bool cmdOptionExists(char** begin, char** end, const std::string& option) {
+    return std::find(begin, end, option) != end;
 }
 
 #pragma mark - Fixed Functions
@@ -205,12 +224,6 @@ void drawScene(void)
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
   
     // Set light properties
-//    void glLightfv(    GLenum light,
-//         GLenum pname,
-//         const GLfloat * params);
-    
-//    GLfloat updown_pos = 0.0f;
-//    GLfloat leftright_pos = 0.0f;
     switch(light_source_indicator) {
         case 1:
             updown_pos += 0.5f;
@@ -237,7 +250,7 @@ void drawScene(void)
 
     // This GLUT method draws a teapot.  You should replace
     // it with code which draws the object you loaded.
-    bool load_designated_obj = loadInput("turos.obj");
+    bool load_designated_obj = loadInput(file_path);
     
     // Dump the image to the screen.
     glutSwapBuffers();
@@ -329,10 +342,12 @@ void reshapeFunc(int w, int h)
 int main( int argc, char** argv )
 {
 //    loadInput()
-    
-    file_path = argv[0];
-    cout<<file_path;
 
+    
+    char * filename = getCmdOption(argv, argv + argc, "-f");
+    file_path = filename;
+    cout<<"Loading File: "<<file_path<<endl;
+    
     glutInit(&argc,argv);
 
     // We're going to animate it, so double buffer
