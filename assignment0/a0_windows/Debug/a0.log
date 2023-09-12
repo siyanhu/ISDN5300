@@ -1,0 +1,72 @@
+﻿  main.cpp
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(37,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(38,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(39,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(55,32): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(105,13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(129,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(130,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(131,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(132,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(133,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(134,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(135,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(136,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(137,21): warning C4244: 'initializing': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=std::seed_seq::result_type
+          ]
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(141,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(141,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(141,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(142,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(142,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(142,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(143,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(143,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(143,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(144,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(144,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(144,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(145,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(145,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(145,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(146,31): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(146,47): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(146,63): warning C4244: 'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(122,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment0\a0_windows\main.cpp(66): warning C4172: returning address of local variable or temporary: r
+  a0.vcxproj -> D:\Gits\ISDN5300\assignment0\a0_windows\Debug\a0.exe

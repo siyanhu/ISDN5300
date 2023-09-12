@@ -1,0 +1,2 @@
+﻿LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+  a0.vcxproj -> D:\Gits\ISDN5300\assignment0\a0_windows\Release\a0.exe
