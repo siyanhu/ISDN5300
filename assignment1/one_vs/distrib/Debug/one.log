@@ -1,8 +1,8 @@
 ﻿  main.cpp
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(257,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(257,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(257,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(258,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(258,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(258,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
   one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe

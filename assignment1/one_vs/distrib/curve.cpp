@@ -47,20 +47,72 @@ Curve evalBezier( const vector< Vector3f >& P, unsigned steps )
     // receive have G1 continuity.  Otherwise, the TNB will not be
     // be defined at points where this does not hold.
 
-    cerr << "\t>>> evalBezier has been called with the following input:" << endl;
+    Vector3f P0 = P[0];
+    Vector3f P1 = P[1];
+    Vector3f P2 = P[2];
+    Vector3f P3 = P[3];
 
-    cerr << "\t>>> Control points (type vector< Vector3f >): "<< endl;
-    for( unsigned i = 0; i < P.size(); ++i )
-    {
-        cerr << "\t>>> " << P[i] << endl;
+    vector<CurvePoint> curve_points;
+
+    for (int div = 0; div < steps; ++div) {
+
+        if (div == 0.0) {
+            continue;
+        }
+
+        GLfloat t = (GLfloat)div / (GLfloat)steps;
+        GLfloat inv = (1.0 - t);
+
+        GLfloat B0 = inv * inv * inv;
+        GLfloat B1 = 3.0 * inv * inv * t;
+        GLfloat B2 = 3.0 * inv * t * t;
+        GLfloat B3 = t * t * t;
+
+        GLfloat x = P0[0] * B0 + P1[0] * B1 + P2[0] * B2 + P3[0] * B3;
+        GLfloat y = P0[1] * B0 + P1[1] * B1 + P2[1] * B2 + P3[1] * B3;
+        GLfloat z = P0[2] * B0 + P1[2] * B1 + P2[2] * B2 + P3[2] * B3;
+        Vector3f V (x, y, z);
+
+        GLfloat B0_p = -3.0 * inv * inv;
+        GLfloat B1_p = 3.0 - 12.0 * t + 9.0 * t * t;
+        GLfloat B2_p = 6.0 * t - 9.0 * t * t;
+        GLfloat B3_p = 3.0 * t * t;
+
+        GLfloat x_p = P0[0] * B0_p + P1[0] * B1_p + P2[0] * B2_p + P3[0] * B3_p;
+        GLfloat y_p = P0[1] * B0_p + P1[1] * B1_p + P2[1] * B2_p + P3[1] * B3_p;
+        GLfloat z_p = P0[2] * B0_p + P1[2] * B1_p + P2[2] * B2_p + P3[2] * B3_p;
+        Vector3f T (x_p, y_p, z_p);
+
+        GLfloat B0_pp = 6.0 * inv;
+        GLfloat B1_pp = -12.0 * inv + 6.0 * inv;
+        GLfloat B2_pp = 6.0 * inv - 12.0 * t;
+        GLfloat B3_pp = 6.0 * t;
+
+        GLfloat x_pp = P0[0] * B0_pp + P1[0] * B1_pp + P2[0] * B2_pp + P3[0] * B3_pp;
+        GLfloat y_pp = P0[1] * B0_pp + P1[1] * B1_pp + P2[1] * B2_pp + P3[1] * B3_pp;
+        GLfloat z_pp = P0[2] * B0_pp + P1[2] * B1_pp + P2[2] * B2_pp + P3[2] * B3_pp;
+        Vector3f N (x_pp, y_pp, z_pp);
+
+        GLfloat B0_ppp = -6.0;
+        GLfloat B1_ppp = 18.0;
+        GLfloat B2_ppp = -18.0;
+        GLfloat B3_ppp = 6.0;
+
+        GLfloat x_ppp = P0[0] * B0_ppp + P1[0] * B1_ppp + P2[0] * B2_ppp + P3[0] * B3_ppp;
+        GLfloat y_ppp = P0[1] * B0_ppp + P1[1] * B1_ppp + P2[1] * B2_ppp + P3[1] * B3_ppp;
+        GLfloat z_ppp = P0[2] * B0_ppp + P1[2] * B1_ppp + P2[2] * B2_ppp + P3[2] * B3_ppp;
+        Vector3f B (x_ppp, y_ppp, z_ppp);
+        
+        CurvePoint cp;
+        cp.V = V;
+        cp.N = N;
+        cp.T = T;
+        cp.B = B;
+
+        curve_points.push_back(cp);
 
     }
-
-    cerr << "\t>>> Steps (type steps): " << steps << endl;
-    cerr << "\t>>> Returning empty curve." << endl;
-
-    // Right now this will just return this empty curve.
-    return Curve();
+    return curve_points;
 }
 
 Curve evalBspline( const vector< Vector3f >& P, unsigned steps )
@@ -141,7 +193,7 @@ void drawCurve( const Curve& curve, float framesize )
     }
     glEnd();
 
-    glLineWidth( 1 );
+    glLineWidth( 5 );
 
     // Draw coordinate frames if framesize nonzero
     if( framesize != 0.0f )

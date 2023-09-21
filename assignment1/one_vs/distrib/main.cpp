@@ -77,8 +77,47 @@ namespace
 
     //DEFINED BY SIYAN
     void loadObjectFile(string filePath);
-    void loadBezierCurve(int segment_number);
+    void loadBezierCurve(int step);
     void loadBSplineCurve(void);
+
+    Vector3f cp0(-0.00, 2.00, 0.0);
+    Vector3f cp1(-2.00, 2.00, 0.0);
+    Vector3f cp2(-2.00, -1.00, 0.0);
+    Vector3f cp3(-0.00, -1.00, 0.0);
+
+    //Vector3f cp4(-16.0, -14.0, 0.0);
+    //Vector3f cp5(-16.0, -14.0, 0.0);
+    //Vector3f cp6(-11.5, -13.0, 0.0);
+    //Vector3f cp7(11.0, -13.0, 0.0);
+    //Vector3f cp8(16.0, -15.0, 0.0);
+    //Vector3f cp9(13.0, 10.0, 0.0);
+
+    //GLfloat bz_controlPzoints[18][3] =
+    //{
+    //    {0.0, 8.0, 0.0},
+    //    {-1.5, 3.0, 0.0},
+    //    {-5.5, 4.0, 0.0},
+
+    //    {-5.5, 4.0, 0.0},
+    //    {-2.5, 0.0, 0.0},
+    //    {-6.0, -4.0, 0.0},
+
+    //    {-6.0, -4.0, 0.0},
+    //    {-1.5, -3.0, 0.0},
+    //    {0.0, -8.0, 0.0},
+
+    //    {0.0, -8.0, 0.0},
+    //    /*{1.0, -3.0, 0.0},
+    //    {6.0, -5.0, 0.0},
+
+    //    {6.0, -5.0, 0.0},
+    //    {3.0, 0.0, 0.0},
+    //    {6.5, 4.5, 0.0},
+
+    //    {6.5, 4.5, 0.0},
+    //    {1.5, 3.0, 0.0},
+    //    {0.0, 8.0, 0.0}*/
+    //};
     //DEFINED BY SIYAN END
 
     // This function is called whenever a "Normal" key press is
@@ -263,77 +302,6 @@ namespace
         glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     }
 
-    // Load in objects from standard input into the global variables: 
-    // gCtrlPoints, gCurves, gCurveNames, gSurfaces, gSurfaceNames.  If
-    // loading fails, this will exit the program.
-    //void loadObjects(int argc, char *argv[])
-    //{
-    //    if (argc < 2)
-    //    {
-    //        cerr<< "usage: " << argv[0] << " SWPFILE [OBJPREFIX] " << endl;
-    //        exit(0);
-    //    }
-
-    //    ifstream in(argv[1]);
-    //    if (!in)
-    //    {
-    //        cerr<< argv[1] << " not found\a" << endl;
-    //        exit(0);
-    //    }
-
-    //    
-    //    cerr << endl << "*** loading and constructing curves and surfaces ***" << endl;
-    //    
-    //    if (!parseFile(in, gCtrlPoints,
-    //                   gCurves, gCurveNames,
-    //                   gSurfaces, gSurfaceNames))
-    //    {
-    //        cerr << "\aerror in file format\a" << endl;
-    //        in.close();
-    //        exit(-1);              
-    //    }
-
-    //    in.close();
-
-    //    // This does OBJ file output
-    //    if (argc > 2)
-    //    {
-    //        cerr << endl << "*** writing obj files ***" << endl;
-    //        
-    //        string prefix(argv[2]);
-
-    //        for (unsigned i=0; i<gSurfaceNames.size(); i++)
-    //        {
-    //            if (gSurfaceNames[i] != ".")
-    //            {
-    //                string filename =
-    //                    prefix + string("_")
-    //                    + gSurfaceNames[i]
-    //                    + string(".obj");
-
-    //                ofstream out(filename.c_str());
-
-    //                if (!out)
-    //                {
-    //                    cerr << "\acould not open file " << filename << ", skipping"<< endl;
-    //                    out.close();
-    //                    continue;
-    //                }
-    //                else
-    //                {
-    //                    outputObjFile(out, gSurfaces[i]);
-    //                    cerr << "wrote " << filename <<  endl;
-    //                }
-    //            }
-    //        }
-    //        
-    //    }
-
-    //    cerr << endl << "*** done ***" << endl;
-
-
-    //}
-
     void loadObjectFile(string filePath) {
         if (file_exist(filePath.c_str()) == 0) {
             cout << "FILE DOES NOT EXIST." << endl;
@@ -362,8 +330,39 @@ namespace
 
     }
 
-    void loadBezierCurve(int segment_number) {
+    void loadBezierCurve(int step) {
 
+        vector<Vector3f> bz_controlPoints;
+        bz_controlPoints.push_back(cp0);
+        bz_controlPoints.push_back(cp1);
+        bz_controlPoints.push_back(cp2);
+        bz_controlPoints.push_back(cp3);
+        //bz_controlPoints.push_back(cp4);
+        //bz_controlPoints.push_back(cp5);
+        //bz_controlPoints.push_back(cp6);
+        //bz_controlPoints.push_back(cp7);
+        //bz_controlPoints.push_back(cp8);
+        //bz_controlPoints.push_back(cp9);
+        int curve_num = 4;
+
+        for (int cur_index = 3; cur_index < curve_num; cur_index+=3) {
+
+            cout << cur_index << endl;
+
+            Vector3f P0_vector(bz_controlPoints[cur_index - 3]);
+            Vector3f P1_vector(bz_controlPoints[cur_index - 2]);
+            Vector3f P2_vector (bz_controlPoints[cur_index - 1]);
+            Vector3f P3_vector (bz_controlPoints[cur_index - 0]);
+
+            vector<Vector3f> control_points;
+            control_points.push_back(P0_vector);
+            control_points.push_back(P1_vector);
+            control_points.push_back(P2_vector);
+            control_points.push_back(P3_vector);
+
+            Curve curve = evalBezier(control_points, step);
+            drawCurve(curve, 10.0);
+        }
     }
 
     void loadBSplineCurve(void) {
@@ -479,11 +478,11 @@ int main( int argc, char* argv[] )
     glutInit(&argc, argv);
 
     // Load in from standard input
-    cout << "Input your swp file. Or type \"CCCURVE\" to continue loading curves." << endl;
+    cout << "Input your swp file. Or type \"CC\" to continue loading curves." << endl;
     string order;
     cin>>order;
 
-    if (order.compare("CCCURVE") != 0) {
+    if (order.compare("CC") != 0) {
         loadObjectFile(order);
     }
     else {
@@ -495,10 +494,10 @@ int main( int argc, char* argv[] )
         }
         else {
             if (order.compare("BE") == 0) {
-                cout << "type the number of segments you want for a series of bezier curves:" << endl;
-                int seg_num = 0;
-                cin >> seg_num;
-                loadBezierCurve(seg_num);
+                int step;
+                cout << endl << "type the steps of each curve:" << endl;
+                cin >> step;
+                loadBezierCurve(step);
             }
             else if (order.compare("BS") == 0) {
                 loadBSplineCurve();
