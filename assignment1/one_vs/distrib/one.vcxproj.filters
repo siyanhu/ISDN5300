@@ -57,6 +57,9 @@
     <ClCompile Include="vecmath\src\Quat4f.cpp">
       <Filter>Source Files\vecmath</Filter>
     </ClCompile>
+    <ClCompile Include="fileio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="vecmath\include\Quat4f.h">
       <Filter>Header Files\vecmath</Filter>
+    </ClInclude>
+    <ClInclude Include="fileio.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -77,6 +77,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="curve.cpp" />
+    <ClCompile Include="fileio.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parse.cpp" />
     <ClCompile Include="surf.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="curve.h" />
     <ClInclude Include="extra.h" />
+    <ClInclude Include="fileio.h" />
     <ClInclude Include="parse.h" />
     <ClInclude Include="surf.h" />
     <ClInclude Include="tuple.h" />
