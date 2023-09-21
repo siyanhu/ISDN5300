@@ -80,16 +80,41 @@ namespace
     void loadBezierCurve(int step);
     void loadBSplineCurve(int step);
 
-    Vector3f cp0(10.0, 18.0, 0.0);
-    Vector3f cp1(-11.5, 13.0, 0.0);
-    Vector3f cp2(-15.5, 14.0, 0.0);
-    Vector3f cp3(-12.5, 10.0, 0.0);
-    Vector3f cp4(-16.0, -14.0, 0.0);
-    Vector3f cp5(-16.0, -14.0, 0.0);
-    Vector3f cp6(-11.5, -13.0, 0.0);
-    Vector3f cp7(11.0, -13.0, 0.0);
-    Vector3f cp8(16.0, -15.0, 0.0);
-    Vector3f cp9(13.0, 10.0, 0.0);
+    Vector3f cp0(10.0, 18.0, 11.0);
+    Vector3f cp1(-11.5, 13.0, 12.0);
+    Vector3f cp2(-15.5, 14.0, 13.0);
+    Vector3f cp3(-12.5, 10.0, 14.0);
+    Vector3f cp4(-16.0, -14.0, 15.0);
+    Vector3f cp5(-16.0, -14.0, 16.0);
+    Vector3f cp6(-11.5, -13.0, 15.0);
+    Vector3f cp7(11.0, -13.0, 14.0);
+    Vector3f cp8(16.0, -15.0, 13.0);
+    Vector3f cp9(13.0, 10.0, 12.0);
+
+    //{0.0, 8.0, 0.0},
+    //{ -1.5, 3.0, 0.0 }, //2
+    //{ -5.5, 4.0, 0.0 },
+
+
+    //{ -5.5, 4.0, 0.0 },
+    //{ -2.5, 0.0, 0.0 }, //4
+    //{ -6.0, -4.0, 0.0 },
+
+    //{ -6.0, -4.0, 0.0 },
+    //{ -1.5, -3.0, 0.0 }, //6
+    //{ 0.0, -8.0, 0.0 },
+
+    //{ 0.0, -8.0, 0.0 },
+    //{ 1.0, -3.0, 0.0 }, //8
+    //{ 6.0, -5.0, 0.0 },
+
+    //{ 6.0, -5.0, 0.0 },
+    //{ 3.0, 0.0, 0.0 }, //10
+    //{ 6.5, 4.5, 0.0 },
+
+    //{ 6.5, 4.5, 0.0 },
+    //{ 1.5, 3.0, 0.0 }, //12
+    //{ 0.0, 8.0, 0.0 }
 
     //DEFINED BY SIYAN END
 
@@ -316,7 +341,7 @@ namespace
         bz_controlPoints.push_back(cp7);
         bz_controlPoints.push_back(cp8);
         bz_controlPoints.push_back(cp9);
-        int curve_num = 10;
+        int curve_num = bz_controlPoints.size();
 
         for (int cur_index = 3; cur_index < curve_num; cur_index+=3) {
 
@@ -351,7 +376,7 @@ namespace
         bz_controlPoints.push_back(cp7);
         bz_controlPoints.push_back(cp8);
         bz_controlPoints.push_back(cp9);
-        int curve_num = 10;
+        int curve_num = bz_controlPoints.size();
 
         for (int cur_index = 3; cur_index < curve_num; cur_index += 3) {
 
