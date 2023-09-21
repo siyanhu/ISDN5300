@@ -386,7 +386,7 @@ namespace
         glNewList(gCurveLists[1], GL_COMPILE);
         {
             for (unsigned i=0; i<gCurves.size(); i++)
-                drawCurve(gCurves[i], 10.0);
+                drawCurve(gCurves[i],0.1f);
         }
         glEndList();
                 
@@ -517,11 +517,11 @@ int main( int argc, char* argv[] )
 
     // Initial parameters for window position and size
     glutInitWindowPosition( 60, 60 );
-    glutInitWindowSize( 600, 600 );
+    glutInitWindowSize( 1260, 780 );
     
     camera.SetDimensions(600, 600);
 
-    camera.SetDistance(10);
+    camera.SetDistance(100);
     camera.SetCenter(Vector3f(0,0,0));
     
     glutCreateWindow("Assignment 1");
