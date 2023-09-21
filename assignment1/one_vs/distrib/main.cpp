@@ -91,32 +91,6 @@ namespace
     Vector3f cp8(16.0, -15.0, 0.0);
     Vector3f cp9(13.0, 10.0, 0.0);
 
-    //GLfloat bz_controlPzoints[18][3] =
-    //{
-    //    {0.0, 8.0, 0.0},
-    //    {-1.5, 3.0, 0.0},
-    //    {-5.5, 4.0, 0.0},
-
-    //    {-5.5, 4.0, 0.0},
-    //    {-2.5, 0.0, 0.0},
-    //    {-6.0, -4.0, 0.0},
-
-    //    {-6.0, -4.0, 0.0},
-    //    {-1.5, -3.0, 0.0},
-    //    {0.0, -8.0, 0.0},
-
-    //    {0.0, -8.0, 0.0},
-    //    /*{1.0, -3.0, 0.0},
-    //    {6.0, -5.0, 0.0},
-
-    //    {6.0, -5.0, 0.0},
-    //    {3.0, 0.0, 0.0},
-    //    {6.5, 4.5, 0.0},
-
-    //    {6.5, 4.5, 0.0},
-    //    {1.5, 3.0, 0.0},
-    //    {0.0, 8.0, 0.0}*/
-    //};
     //DEFINED BY SIYAN END
 
     // This function is called whenever a "Normal" key press is
@@ -360,12 +334,42 @@ namespace
             control_points.push_back(P3_vector);
 
             Curve curve = evalBezier(control_points, step);
-            drawCurve(curve, 10.0);
+            gCurves.push_back(curve);
         }
     }
 
     void loadBSplineCurve(void) {
+        vector<Vector3f> bz_controlpoints;
+        bz_controlpoints.push_back(cp0);
+        bz_controlpoints.push_back(cp1);
+        bz_controlpoints.push_back(cp2);
+        bz_controlpoints.push_back(cp3);
+        bz_controlpoints.push_back(cp4);
+        bz_controlpoints.push_back(cp5);
+        bz_controlpoints.push_back(cp6);
+        bz_controlpoints.push_back(cp7);
+        bz_controlpoints.push_back(cp8);
+        bz_controlpoints.push_back(cp9);
+        int curve_num = 10;
 
+        for (int cur_index = 3; cur_index < curve_num; cur_index+=3) {
+
+            cout << cur_index << endl;
+
+            Vector3f p0_vector(bz_controlpoints[cur_index - 3]);
+            Vector3f p1_vector(bz_controlpoints[cur_index - 2]);
+            Vector3f p2_vector (bz_controlpoints[cur_index - 1]);
+            Vector3f p3_vector (bz_controlpoints[cur_index - 0]);
+
+            vector<Vector3f> control_points;
+            control_points.push_back(p0_vector);
+            control_points.push_back(p1_vector);
+            control_points.push_back(p2_vector);
+            control_points.push_back(p3_vector);
+
+            Curve curve = evalBspline(control_points, 10);
+            drawCurve(curve, 10.0);
+        }
     }
 
     void makeDisplayLists()
@@ -382,7 +386,7 @@ namespace
         glNewList(gCurveLists[1], GL_COMPILE);
         {
             for (unsigned i=0; i<gCurves.size(); i++)
-                drawCurve(gCurves[i], 0.0);
+                drawCurve(gCurves[i], 10.0);
         }
         glEndList();
                 
