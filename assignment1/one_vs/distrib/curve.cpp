@@ -193,7 +193,7 @@ void drawCurve( const Curve& curve, float framesize )
     }
     glEnd();
 
-    glLineWidth( 5 );
+    glLineWidth( 1 );
 
     // Draw coordinate frames if framesize nonzero
     if( framesize != 0.0f )

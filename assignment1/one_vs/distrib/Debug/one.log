@@ -1,8 +1,23 @@
-﻿  main.cpp
+﻿  curve.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(57,27): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(64,21): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(67,20): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(68,20): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(76,22): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(77,22): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(78,22): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(79,22): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(86,23): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(87,23): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(88,23): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(89,23): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(159,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(296,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(297,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  Generating Code...
   one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe

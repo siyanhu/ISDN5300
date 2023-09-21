@@ -80,17 +80,16 @@ namespace
     void loadBezierCurve(int step);
     void loadBSplineCurve(void);
 
-    Vector3f cp0(-0.00, 2.00, 0.0);
-    Vector3f cp1(-2.00, 2.00, 0.0);
-    Vector3f cp2(-2.00, -1.00, 0.0);
-    Vector3f cp3(-0.00, -1.00, 0.0);
-
-    //Vector3f cp4(-16.0, -14.0, 0.0);
-    //Vector3f cp5(-16.0, -14.0, 0.0);
-    //Vector3f cp6(-11.5, -13.0, 0.0);
-    //Vector3f cp7(11.0, -13.0, 0.0);
-    //Vector3f cp8(16.0, -15.0, 0.0);
-    //Vector3f cp9(13.0, 10.0, 0.0);
+    Vector3f cp0(10.0, 18.0, 0.0);
+    Vector3f cp1(-11.5, 13.0, 0.0);
+    Vector3f cp2(-15.5, 14.0, 0.0);
+    Vector3f cp3(-12.5, 10.0, 0.0);
+    Vector3f cp4(-16.0, -14.0, 0.0);
+    Vector3f cp5(-16.0, -14.0, 0.0);
+    Vector3f cp6(-11.5, -13.0, 0.0);
+    Vector3f cp7(11.0, -13.0, 0.0);
+    Vector3f cp8(16.0, -15.0, 0.0);
+    Vector3f cp9(13.0, 10.0, 0.0);
 
     //GLfloat bz_controlPzoints[18][3] =
     //{
@@ -337,13 +336,13 @@ namespace
         bz_controlPoints.push_back(cp1);
         bz_controlPoints.push_back(cp2);
         bz_controlPoints.push_back(cp3);
-        //bz_controlPoints.push_back(cp4);
-        //bz_controlPoints.push_back(cp5);
-        //bz_controlPoints.push_back(cp6);
-        //bz_controlPoints.push_back(cp7);
-        //bz_controlPoints.push_back(cp8);
-        //bz_controlPoints.push_back(cp9);
-        int curve_num = 4;
+        bz_controlPoints.push_back(cp4);
+        bz_controlPoints.push_back(cp5);
+        bz_controlPoints.push_back(cp6);
+        bz_controlPoints.push_back(cp7);
+        bz_controlPoints.push_back(cp8);
+        bz_controlPoints.push_back(cp9);
+        int curve_num = 10;
 
         for (int cur_index = 3; cur_index < curve_num; cur_index+=3) {
 
