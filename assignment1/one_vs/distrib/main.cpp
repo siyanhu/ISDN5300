@@ -80,23 +80,40 @@ namespace
     void loadBezierCurve(int step);
     void loadBSplineCurve(int step);
 
-    Vector3f cp0(10.0, 18.0, 11.0);
-    Vector3f cp1(-11.5, 13.0, 12.0);
-    Vector3f cp2(-15.5, 14.0, -13.0);
-    Vector3f cp22(-15.5, 14.0, -13.0);
-    Vector3f cp3(-12.5, 10.0, -14.0);
-    Vector3f cp4(-16.0, -14.0, -15.0);
-    Vector3f cp44(-16.0, -14.0, -15.0);
-    Vector3f cp5(-11.5, -13.0, 15.0);
-    Vector3f cp6(10.0, -18.0, 11.0);
-    Vector3f cp66(10.0, -18.0, -11.0);
-    Vector3f cp7(11.0, -13.0, -14.0);
-    Vector3f cp8(16.0, -15.0, 13.0);
-    Vector3f cp9(13.0, 10.0, 12.0);
-    Vector3f cp10(16.5, 14.5, -11.0);
-    Vector3f cp100(16.5, 14.5, -11.0);
-    Vector3f cp11(11.5, 13.0, -10.0);
-    Vector3f cp12(10.0, 18.0, 10.0);
+    //Vector3f cp0(10.0, 18.0, 11.0);
+    //Vector3f cp1(-11.5, 13.0, 12.0);
+    //Vector3f cp2(-15.5, 14.0, -13.0);
+    //Vector3f cp22(-15.5, 14.0, -13.0);
+    //Vector3f cp3(-12.5, 10.0, -14.0);
+    //Vector3f cp4(-16.0, -14.0, -15.0);
+    //Vector3f cp44(-16.0, -14.0, -15.0);
+    //Vector3f cp5(-11.5, -13.0, 15.0);
+    //Vector3f cp6(10.0, -18.0, 11.0);
+    //Vector3f cp66(10.0, -18.0, -11.0);
+    //Vector3f cp7(11.0, -13.0, -14.0);
+    //Vector3f cp8(16.0, -15.0, 13.0);
+    //Vector3f cp9(13.0, 10.0, 12.0);
+    //Vector3f cp10(16.5, 14.5, -11.0);
+    //Vector3f cp100(16.5, 14.5, -11.0);
+    //Vector3f cp11(11.5, 13.0, -10.0);
+    //Vector3f cp12(10.0, 18.0, 10.0);
+
+    Vector3f cp0(0.9, 1.0, 0);
+    Vector3f cp1(1.2, -1.2, 0);
+    Vector3f cp2(1.5, 1.5, 0);
+    Vector3f cp3(1.8, -1.5, 0);
+    Vector3f cp4(2.1, 1.5, 0);
+    Vector3f cp5(2.3,- 1.8, 0);
+    Vector3f cp6(2.5, 1.5, 0);
+    Vector3f cp7(2.7, -1.8, 0);
+    Vector3f cp8(2.5, 1.5, 0);
+    Vector3f cp9(2.4, -1.8, 0);
+    Vector3f cp10(2.3, 1.5, 0);
+    Vector3f cp11(2.2,- 1.8, 0);
+    Vector3f cp12(2.1, 1.8, 0);
+    Vector3f cp13(1.9,- 1.8, 0);
+    Vector3f cp14(1.7, 1.0, 0);
+    Vector3f cp15(1.5,- 1.0, 0);
 
     //DEFINED BY SIYAN END
 
@@ -316,10 +333,10 @@ namespace
         bz_controlPoints.push_back(cp0);
         bz_controlPoints.push_back(cp1);
         bz_controlPoints.push_back(cp2);
-        bz_controlPoints.push_back(cp22);
+        //bz_controlPoints.push_back(cp22);
         bz_controlPoints.push_back(cp3);
         bz_controlPoints.push_back(cp4);
-        bz_controlPoints.push_back(cp44);
+        //bz_controlPoints.push_back(cp44);
         bz_controlPoints.push_back(cp5);
         bz_controlPoints.push_back(cp6);
         bz_controlPoints.push_back(cp6);
@@ -327,10 +344,12 @@ namespace
         bz_controlPoints.push_back(cp8);
         bz_controlPoints.push_back(cp9);
         bz_controlPoints.push_back(cp10);
-        bz_controlPoints.push_back(cp100);
+        //bz_controlPoints.push_back(cp100);
         bz_controlPoints.push_back(cp11);
         bz_controlPoints.push_back(cp12);
-        bz_controlPoints.push_back(cp0);
+        bz_controlPoints.push_back(cp13);
+        bz_controlPoints.push_back(cp14);
+        bz_controlPoints.push_back(cp15);
         int curve_num = bz_controlPoints.size();
 
         for (int cur_index = 0; cur_index < curve_num - 3; cur_index+=3) {
@@ -356,13 +375,14 @@ namespace
     void loadBSplineCurve(int step) {
 
         vector<Vector3f> bz_controlPoints;
+
         bz_controlPoints.push_back(cp0);
         bz_controlPoints.push_back(cp1);
         bz_controlPoints.push_back(cp2);
-        bz_controlPoints.push_back(cp22);
+        //bz_controlPoints.push_back(cp22);
         bz_controlPoints.push_back(cp3);
         bz_controlPoints.push_back(cp4);
-        bz_controlPoints.push_back(cp44);
+        //bz_controlPoints.push_back(cp44);
         bz_controlPoints.push_back(cp5);
         bz_controlPoints.push_back(cp6);
         bz_controlPoints.push_back(cp6);
@@ -370,10 +390,14 @@ namespace
         bz_controlPoints.push_back(cp8);
         bz_controlPoints.push_back(cp9);
         bz_controlPoints.push_back(cp10);
-        bz_controlPoints.push_back(cp100);
+        //bz_controlPoints.push_back(cp100);
         bz_controlPoints.push_back(cp11);
         bz_controlPoints.push_back(cp12);
-        bz_controlPoints.push_back(cp0);
+        bz_controlPoints.push_back(cp13);
+        bz_controlPoints.push_back(cp14);
+        bz_controlPoints.push_back(cp15);
+        bz_controlPoints.push_back(cp15);
+
         int curve_num = bz_controlPoints.size();
 
         for (int cur_index = 3; cur_index < curve_num; cur_index += 3) {
@@ -391,7 +415,7 @@ namespace
             control_points.push_back(P2_vector);
             control_points.push_back(P3_vector);
 
-            Curve curve = evalBezier(control_points, step);
+            Curve curve = evalBspline(control_points, step);
             gCurves.push_back(curve);
         }
     }
@@ -548,7 +572,7 @@ int main( int argc, char* argv[] )
     
     camera.SetDimensions(600, 600);
 
-    camera.SetDistance(100);
+    camera.SetDistance(10);
     camera.SetCenter(Vector3f(0,0,0));
     
     glutCreateWindow("Assignment 1");
