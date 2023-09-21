@@ -432,48 +432,52 @@ namespace
 int main( int argc, char* argv[] )
 {
     // Load in from standard input
-    loadObjects(argc, argv);
+    cout << "Input your swp file. Or type Enter to continue loading preset curves." << endl;
+    string ch;
+    cin>>ch;
+    cout << ch;
+    //loadObjects(argc, argv);
 
-    glutInit(&argc,argv);
+    //glutInit(&argc,argv);
 
-    // We're going to animate it, so double buffer 
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
+    //// We're going to animate it, so double buffer 
+    //glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
 
-    // Initial parameters for window position and size
-    glutInitWindowPosition( 60, 60 );
-    glutInitWindowSize( 600, 600 );
-    
-    camera.SetDimensions(600, 600);
+    //// Initial parameters for window position and size
+    //glutInitWindowPosition( 60, 60 );
+    //glutInitWindowSize( 600, 600 );
+    //
+    //camera.SetDimensions(600, 600);
 
-    camera.SetDistance(10);
-    camera.SetCenter(Vector3f(0,0,0));
-    
-    glutCreateWindow("Assignment 1");
+    //camera.SetDistance(10);
+    //camera.SetCenter(Vector3f(0,0,0));
+    //
+    //glutCreateWindow("Assignment 1");
 
-    // Initialize OpenGL parameters.
-    initRendering();
+    //// Initialize OpenGL parameters.
+    //initRendering();
 
-    // Set up callback functions for key presses
-    glutKeyboardFunc(keyboardFunc); // Handles "normal" ascii symbols
-    glutSpecialFunc(specialFunc);   // Handles "special" keyboard keys
+    //// Set up callback functions for key presses
+    //glutKeyboardFunc(keyboardFunc); // Handles "normal" ascii symbols
+    //glutSpecialFunc(specialFunc);   // Handles "special" keyboard keys
 
-    // Set up callback functions for mouse
-    glutMouseFunc(mouseFunc);
-    glutMotionFunc(motionFunc);
+    //// Set up callback functions for mouse
+    //glutMouseFunc(mouseFunc);
+    //glutMotionFunc(motionFunc);
 
-    // Set up the callback function for resizing windows
-    glutReshapeFunc( reshapeFunc );
+    //// Set up the callback function for resizing windows
+    //glutReshapeFunc( reshapeFunc );
 
-    // Call this whenever window needs redrawing
-    glutDisplayFunc( drawScene );
+    //// Call this whenever window needs redrawing
+    //glutDisplayFunc( drawScene );
 
-    // Trigger timerFunc every 20 msec
-    //  glutTimerFunc(20, timerFunc, 0);
+    //// Trigger timerFunc every 20 msec
+    ////  glutTimerFunc(20, timerFunc, 0);
 
-    makeDisplayLists();
-        
-    // Start the main loop.  glutMainLoop never returns.
-    glutMainLoop();
+    //makeDisplayLists();
+    //    
+    //// Start the main loop.  glutMainLoop never returns.
+    //glutMainLoop();
 
     return 0;	// This line is never reached.
 }
