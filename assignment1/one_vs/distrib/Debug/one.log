@@ -1,0 +1,22 @@
+﻿  camera.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\camera.cpp(187,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  curve.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\curve.cpp(105,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(249,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(249,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(249,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(250,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(250,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(250,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  parse.cpp
+  surf.cpp
+  Matrix2f.cpp
+  Matrix3f.cpp
+  Matrix4f.cpp
+  Quat4f.cpp
+  Vector2f.cpp
+  Vector3f.cpp
+  Vector4f.cpp
+  Generating Code...
+  one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe
