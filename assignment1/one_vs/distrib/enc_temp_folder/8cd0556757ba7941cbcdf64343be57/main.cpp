@@ -525,6 +525,7 @@ int main( int argc, char* argv[] )
     else {
         cout << "Type BE for bezier curve; type BS for b-spline:" << endl;
         cin >> order;
+        cout << order << endl;
         if (order.length() <= 0) {
             cout << "ILLEGAL COMMAND: " << order << endl;
             exit(0);
