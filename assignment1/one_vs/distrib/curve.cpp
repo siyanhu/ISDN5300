@@ -160,8 +160,8 @@ Curve evalBspline( const vector< Vector3f >& P, unsigned steps )
 
         GLfloat B0_p = -0.5 * t * t + t - 0.5;
         GLfloat B1_p =1.5 * t * t - 2.0 * t;
-        GLfloat B2_p = 6.0 * t - 9.0 * t * t;
-        GLfloat B3_p = 3.0 * t * t;
+        GLfloat B2_p = -1.5 * t * t - t - 2.0 / 3.0;
+        GLfloat B3_p = 0.5 * t * t;
 
         GLfloat x_p = P0[0] * B0_p + P1[0] * B1_p + P2[0] * B2_p + P3[0] * B3_p;
         GLfloat y_p = P0[1] * B0_p + P1[1] * B1_p + P2[1] * B2_p + P3[1] * B3_p;
@@ -169,9 +169,9 @@ Curve evalBspline( const vector< Vector3f >& P, unsigned steps )
         Vector3f T(x_p, y_p, z_p);
 
         GLfloat B0_pp = 1.0 - t;
-        GLfloat B1_pp = -12.0 * inv + 6.0 * inv;
-        GLfloat B2_pp = 6.0 * inv - 12.0 * t;
-        GLfloat B3_pp = 6.0 * t;
+        GLfloat B1_pp = 3.0 * t - 1;
+        GLfloat B2_pp = - 3.0 * t - 1;
+        GLfloat B3_pp = t;
 
         GLfloat x_pp = P0[0] * B0_pp + P1[0] * B1_pp + P2[0] * B2_pp + P3[0] * B3_pp;
         GLfloat y_pp = P0[1] * B0_pp + P1[1] * B1_pp + P2[1] * B2_pp + P3[1] * B3_pp;
@@ -179,9 +179,9 @@ Curve evalBspline( const vector< Vector3f >& P, unsigned steps )
         Vector3f N(x_pp, y_pp, z_pp);
 
         GLfloat B0_ppp = -1.0;
-        GLfloat B1_ppp = 18.0;
-        GLfloat B2_ppp = -18.0;
-        GLfloat B3_ppp = 6.0;
+        GLfloat B1_ppp = 3.0;
+        GLfloat B2_ppp = - 3.0;
+        GLfloat B3_ppp = 1.0;
 
         GLfloat x_ppp = P0[0] * B0_ppp + P1[0] * B1_ppp + P2[0] * B2_ppp + P3[0] * B3_ppp;
         GLfloat y_ppp = P0[1] * B0_ppp + P1[1] * B1_ppp + P2[1] * B2_ppp + P3[1] * B3_ppp;
