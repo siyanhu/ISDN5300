@@ -1,5 +1,6 @@
 #include "surf.h"
 #include "extra.h"
+#include <windows.h>
 using namespace std;
 
 namespace
@@ -30,6 +31,75 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
     }
 
     // TODO: Here you should build the surface.  See surf.h for details.
+
+    vector<Tup3u> VF;
+    vector<Vector3f> VV;
+    vector<Vector3f> VN;
+    double theta = 0.0f;
+    Curve last_curve = profile;
+    Curve new_curve;
+
+    for (int div = 0; div < steps; ++div) {
+        if (div > 0.0f) {
+            theta = 360.0 / steps;
+        }
+
+        vector<Vector3f> temp_VV;
+        vector<Vector3f> temp_VN;
+
+        for (int i = 0; i < last_curve.size(); i++) {
+            CurvePoint cp = last_curve[i];
+            GLfloat sx = cp.V.x();
+            GLfloat sy = cp.V.y();
+            GLfloat sz = cp.V.z();
+
+            GLfloat sx_n = cp.V.x();
+            GLfloat sy_n = cp.V.y();
+            GLfloat sz_n = cp.V.z();
+
+            GLfloat new_sx = (sx * cos(theta) + sz * sin(theta));
+            GLfloat new_sy = sy;
+            GLfloat new_sz = (sz * cos(theta) - sx * sin(theta));
+            Vector3f sV(new_sx, new_sy, new_sz);
+            temp_VV.push_back(sV);
+
+            GLfloat new_sx_n = (sx_n * cos(theta) + sz_n * sin(theta));
+            GLfloat new_sy_n = sy_n;
+            GLfloat new_sz_n = (sz_n * cos(theta) - sx_n * sin(theta));
+            Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
+            temp_VN.push_back(sN);
+
+            if (i > 0) {
+                Vector3f last_new_vector = temp_VV.back();
+                Vector3f last_new_normal = temp_VN.back();
+
+                Vector3f last_old_vector(sx, sy, sz);
+                Vector3f last_old_normal(sx_n, sy_n, sz_n);
+
+                int current_tag_index = VV.size();
+                VV.push_back(last_old_vector);
+                VV.push_back(last_new_vector);
+                VV.push_back(sV);
+                VN.push_back(last_old_normal);
+                VN.push_back(last_new_normal);
+                VN.push_back(sN);
+                Tup3u sF(current_tag_index, current_tag_index + 1, current_tag_index + 2);
+                VF.push_back(sF);
+            }
+
+            CurvePoint newcp;
+            newcp.V = sV;
+            newcp.N = sN;
+            new_curve.push_back(newcp);
+        }
+
+        last_curve.clear();
+        last_curve = new_curve;
+        new_curve.clear();
+    }
+    surface.VF = VF;
+    surface.VN = VN;
+    surface.VV = VV;
 
     cerr << "\t>>> makeSurfRev called (but not implemented).\n\t>>> Returning empty surface." << endl;
  

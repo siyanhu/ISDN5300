@@ -369,6 +369,9 @@ namespace
 
             Curve curve = evalBezier(control_points, step);
             gCurves.push_back(curve);
+
+            Surface surface = makeSurfRev(curve, step);
+            gSurfaces.push_back(surface);
         }
     }
 
