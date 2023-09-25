@@ -18,7 +18,7 @@ namespace
 
     
 }
-    
+ 
 
 Curve evalBezier( const vector< Vector3f >& P, unsigned steps )
 {

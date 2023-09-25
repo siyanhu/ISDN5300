@@ -20,6 +20,27 @@ namespace
     }
 }
 
+
+Vector3f normalise_vector(Vector3f vec) {
+    GLfloat x = vec.x();
+    GLfloat y = vec.y();
+    GLfloat z = vec.z();
+    GLfloat len = std::sqrt(x * x + y * y + z * z);
+
+    if (len != 0.)
+    {
+        x /= len;
+        y /= len;
+        z /= len;
+
+        Vector3f n_vec(x, y, z);
+        return n_vec;
+    }
+    else {
+        return vec;
+    }
+} 
+
 Surface makeSurfRev(const Curve &profile, unsigned steps)
 {
     Surface surface;
@@ -120,7 +141,7 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
     return surface;
 }
 
-Surface makeGenCyl(const Curve &profile, const Curve &sweep )
+Surface makeGenCyl(const Curve &profile, const Curve &sweep)
 {
     Surface surface;
 
@@ -131,8 +152,99 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep )
     }
 
     // TODO: Here you should build the surface.  See surf.h for details.
+    vector<Tup3u> VF;
+    vector<Vector3f> VV;
+    vector<Vector3f> VN;
+    Curve last_curve = profile;
+    Curve new_curve;
 
-    cerr << "\t>>> makeGenCyl called (but not implemented).\n\t>>> Returning empty surface." <<endl;
+    for (int div = 0; div < sweep.size(); ++div) {
+
+        CurvePoint sweep_cp = sweep[div];
+        Vector3f N = normalise_vector(sweep_cp.N);
+        Vector3f B = normalise_vector(sweep_cp.B);
+        Vector3f T = normalise_vector(sweep_cp.T);
+        Vector3f V = normalise_vector(sweep_cp.V);
+
+        GLfloat trans[4][4] = {
+            {N.x(), B.x(), T.x(), V.x()},
+            {N.y(), B.y(), T.y(), V.y()},
+            {N.z(), B.z(), T.z(), V.z()},
+            {0.0f, 0.0f, 0.0f, 1.0}
+        };
+
+        vector<Vector3f> temp_VV;
+        vector<Vector3f> temp_VN;
+
+        for (int i = 0; i < last_curve.size(); i++) {
+            CurvePoint cp = last_curve[i];
+            GLfloat sx = cp.V.x();
+            GLfloat sy = cp.V.y();
+            GLfloat sz = cp.V.z();
+
+            GLfloat sx_n = cp.N.x();
+            GLfloat sy_n = cp.N.y();
+            GLfloat sz_n = cp.N.z();
+
+            GLfloat new_sx = sx * N.x() + sy * B.x() + sz * T.x() + V.x();
+            GLfloat new_sy = sx * N.y() + sy * B.y() + sz * T.y() + V.y();
+            GLfloat new_sz = sx * N.z() + sy * B.z() + sz * T.z() + V.z();
+            Vector3f sV(new_sx, new_sy, new_sz);
+
+            GLfloat new_sx_n = sx_n * N.x() + sy_n * B.x() + sz_n * T.x() + V.x();
+            GLfloat new_sy_n = sx_n * N.y() + sy_n * B.y() + sz_n * T.y() + V.y();
+            GLfloat new_sz_n = sx_n * N.z() + sy_n * B.z() + sz_n * T.z() + V.z();
+            Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
+
+            if (i > 0) {
+                Vector3f last_new_vector = temp_VV.back();
+                Vector3f last_new_normal = temp_VN.back();
+
+                int current_tag_index = VV.size();
+
+                VV.push_back(sV);
+                VV.push_back(last_new_vector);
+
+                VN.push_back(sN);
+                VN.push_back(last_new_normal);
+
+
+                Tup3u sF(current_tag_index, current_tag_index - 1, current_tag_index + 1);
+                VF.push_back(sF);
+
+                Tup3u sF_sym(current_tag_index - 2, current_tag_index - 1, current_tag_index);
+                VF.push_back(sF_sym);
+            }
+            else {
+                Vector3f last_new_vector = sV;
+                Vector3f last_new_normal = sN;
+
+                Vector3f last_old_vector(sx, sy, sz);
+                Vector3f last_old_normal(sx_n, sy_n, sz_n);
+
+                VV.push_back(last_old_vector);
+                VN.push_back(last_old_normal);
+
+                VV.push_back(last_new_vector);
+                VN.push_back(last_new_normal);
+            }
+
+            temp_VV.push_back(sV);
+            temp_VN.push_back(sN);
+
+            CurvePoint newcp;
+            newcp.V = sV;
+            newcp.N = sN;
+            new_curve.push_back(newcp);
+        }
+
+        last_curve.clear();
+        last_curve = new_curve;
+        new_curve.clear();
+    }
+    surface.VF = VF;
+    surface.VN = VN;
+    surface.VV = VV;
 
     return surface;
 }

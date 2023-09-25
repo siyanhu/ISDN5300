@@ -84,10 +84,10 @@ namespace
     Vector3f cp1(1.2, -1.2, 0);
     Vector3f cp2(1.5, 1.5, 0);
     Vector3f cp3(1.8, -1.5, 0);
-    Vector3f cp4(2.1, 1.5, 0);
-    Vector3f cp5(2.3,- 1.8, 0);
-    Vector3f cp6(2.5, 1.5, 0);
-    Vector3f cp7(2.7, -1.8, 0);
+    Vector3f cp4(1.5, 1.1, 0);
+    Vector3f cp5(-1.8, 2.3, 0);
+    Vector3f cp6(1.5, 2.5, 0);
+    Vector3f cp7(-1.8, 2.7, 0);
     Vector3f cp8(2.5, 1.5, 0);
     Vector3f cp9(2.4, -1.8, 0);
     Vector3f cp10(2.3, 1.5, 0);
@@ -96,7 +96,7 @@ namespace
     Vector3f cp13(1.9,- 1.8, 0);
     Vector3f cp14(1.7, 1.0, 0);
     Vector3f cp15(1.5,- 1.0, 0);
-    int total_curve_num = 4;
+    int total_curve_num = 2;
 
     //DEFINED BY SIYAN END
 
