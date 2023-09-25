@@ -61,31 +61,47 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
             GLfloat new_sy = sy;
             GLfloat new_sz = (sz * cos(theta) - sx * sin(theta));
             Vector3f sV(new_sx, new_sy, new_sz);
-            temp_VV.push_back(sV);
 
             GLfloat new_sx_n = sx_n * cos(theta) - sz_n * sin(theta);
             GLfloat new_sy_n = sy_n;
             GLfloat new_sz_n = sx_n * sin(theta) + sz_n * cos(theta);
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
-            temp_VN.push_back(sN);
 
             if (i > 0) {
                 Vector3f last_new_vector = temp_VV.back();
                 Vector3f last_new_normal = temp_VN.back();
 
+                int current_tag_index = VV.size();
+
+                VV.push_back(sV);
+                VV.push_back(last_new_vector);
+                
+                VN.push_back(sN);
+                VN.push_back(last_new_normal);
+                
+
+                Tup3u sF(current_tag_index, current_tag_index - 1, current_tag_index + 1);
+                VF.push_back(sF);
+
+                Tup3u sF_sym(current_tag_index - 2, current_tag_index - 1, current_tag_index);
+                VF.push_back(sF_sym);
+            }
+            else {
+                Vector3f last_new_vector = sV;
+                Vector3f last_new_normal = sN;
+
                 Vector3f last_old_vector(sx, sy, sz);
                 Vector3f last_old_normal(sx_n, sy_n, sz_n);
 
-                int current_tag_index = VV.size();
                 VV.push_back(last_old_vector);
-                VV.push_back(last_new_vector);
-                VV.push_back(sV);
                 VN.push_back(last_old_normal);
+
+                VV.push_back(last_new_vector);
                 VN.push_back(last_new_normal);
-                VN.push_back(sN);
-                Tup3u sF(current_tag_index, current_tag_index + 1, current_tag_index + 2);
-                VF.push_back(sF);
             }
+
+            temp_VV.push_back(sV);
+            temp_VN.push_back(sN);
 
             CurvePoint newcp;
             newcp.V = sV;
