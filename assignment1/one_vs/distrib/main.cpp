@@ -43,7 +43,7 @@ namespace
     int  gPointMode = 1;
 
     // This detemines how big to draw the normals
-    const float gLineLen = 0.5f;
+    const float gLineLen = 5.0f;
     
     // These are arrays for display lists for each drawing mode.  The
     // convention is that drawmode 0 is "blank", and other drawmodes
@@ -77,26 +77,8 @@ namespace
 
     //DEFINED BY SIYAN
     void loadObjectFile(string filePath);
-    void loadBezierCurve(int step, int surfstep);
-    void loadBSplineCurve(int step, int surfstep);
-
-    //Vector3f cp0(10.0, 18.0, 11.0);
-    //Vector3f cp1(-11.5, 13.0, 12.0);
-    //Vector3f cp2(-15.5, 14.0, -13.0);
-    //Vector3f cp22(-15.5, 14.0, -13.0);
-    //Vector3f cp3(-12.5, 10.0, -14.0);
-    //Vector3f cp4(-16.0, -14.0, -15.0);
-    //Vector3f cp44(-16.0, -14.0, -15.0);
-    //Vector3f cp5(-11.5, -13.0, 15.0);
-    //Vector3f cp6(10.0, -18.0, 11.0);
-    //Vector3f cp66(10.0, -18.0, -11.0);
-    //Vector3f cp7(11.0, -13.0, -14.0);
-    //Vector3f cp8(16.0, -15.0, 13.0);
-    //Vector3f cp9(13.0, 10.0, 12.0);
-    //Vector3f cp10(16.5, 14.5, -11.0);
-    //Vector3f cp100(16.5, 14.5, -11.0);
-    //Vector3f cp11(11.5, 13.0, -10.0);
-    //Vector3f cp12(10.0, 18.0, 10.0);
+    void loadBezierCurve(int step, int surfstep, int rev);
+    void loadBSplineCurve(int step, int surfstep, int rev);
 
     Vector3f cp0(0.9, 1.0, 0);
     Vector3f cp1(1.2, -1.2, 0);
@@ -114,6 +96,7 @@ namespace
     Vector3f cp13(1.9,- 1.8, 0);
     Vector3f cp14(1.7, 1.0, 0);
     Vector3f cp15(1.5,- 1.0, 0);
+    int total_curve_num = 4;
 
     //DEFINED BY SIYAN END
 
@@ -327,9 +310,9 @@ namespace
 
     }
 
-    void loadBezierCurve(int step, int surfstep) {
-
-        int total_curve_num = 4;
+    void loadBezierCurve(int step, int surfstep, int rev) {
+        
+        vector<Curve> cyl_surf;
         for (int i = 0; i < total_curve_num; i++) {
             vector<Vector3f> bz_controlPoints;
             if (i == 0) {
@@ -361,14 +344,28 @@ namespace
             Curve curve = evalBezier(bz_controlPoints, step);
             gCurves.push_back(curve);
 
-            Surface surface = makeSurfRev(curve, step);
-            gSurfaces.push_back(surface);
+            if (rev == 1) {
+                Surface surface = makeSurfRev(curve, step);
+                gSurfaces.push_back(surface);
+            }
+            else if (rev == 2) {
+                cyl_surf.push_back(curve);
+            }
+        }
+
+        if (rev == 2) {
+            for (int i = 0; i < cyl_surf.size() - 1; i++) {
+                Curve profile = cyl_surf[i];
+                Curve sweep = cyl_surf[i + 1];
+                Surface surface = makeGenCyl(profile, sweep);
+                gSurfaces.push_back(surface);
+            }
         }
     }
 
-    void loadBSplineCurve(int step, int surfstep) {
+    void loadBSplineCurve(int step, int surfstep, int rev) {
 
-        int total_curve_num = 4;
+        vector<Curve> cyl_surf;
         for (int i = 0; i < total_curve_num; i++) {
             vector<Vector3f> bz_controlPoints;
             if (i == 0) {
@@ -400,8 +397,22 @@ namespace
             Curve curve = evalBspline(bz_controlPoints, step);
             gCurves.push_back(curve);
 
-            Surface surface = makeSurfRev(curve, step);
-            gSurfaces.push_back(surface);
+            if (rev == 1) {
+                Surface surface = makeSurfRev(curve, step);
+                gSurfaces.push_back(surface);
+            }
+            else if (rev == 2) {
+                cyl_surf.push_back(curve);
+            }
+        }
+
+        if (rev == 2) {
+            for (int i = 0; i < cyl_surf.size() - 1; i++) {
+                Curve profile = cyl_surf[i];
+                Curve sweep = cyl_surf[i + 1];
+                Surface surface = makeGenCyl(profile, sweep);
+                gSurfaces.push_back(surface);
+            }
         }
     }
 
@@ -532,20 +543,26 @@ int main( int argc, char* argv[] )
             if (order.compare("BE") == 0) {
                 int step;
                 int surfstep;
+                int rev;
                 cout << endl << "type the steps of each curve:" << endl;
                 cin >> step;
                 cout << endl << "type the steps of surface:" << endl;
                 cin >> surfstep;
-                loadBezierCurve(step, surfstep);
+                cout << endl << "type 1 for Revolution, 2 for sweep:" << endl;
+                cin >> rev;
+                loadBezierCurve(step, surfstep, rev);
             }
             else if (order.compare("BS") == 0) {
                 int step;
                 int surfstep;
+                int rev;
                 cout << endl << "type the steps of each curve:" << endl;
                 cin >> step;
                 cout << endl << "type the steps of surface:" << endl;
                 cin >> surfstep;
-                loadBSplineCurve(step, surfstep);
+                cout << endl << "type 1 for Revolution, 2 for sweep:" << endl;
+                cin >> rev;
+                loadBSplineCurve(step, surfstep, rev);
             }
             else {
                 cout << "ILLEGAL COMMAND: " << order << endl;
