@@ -41,7 +41,7 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
 
     for (int div = 0; div < steps; ++div) {
         if (div > 0.0f) {
-            theta = 360.0 / steps;
+            theta = 180.0f / steps * (M_PI / 180.0f);
         }
 
         vector<Vector3f> temp_VV;
@@ -53,9 +53,9 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
             GLfloat sy = cp.V.y();
             GLfloat sz = cp.V.z();
 
-            GLfloat sx_n = cp.V.x();
-            GLfloat sy_n = cp.V.y();
-            GLfloat sz_n = cp.V.z();
+            GLfloat sx_n = cp.N.x();
+            GLfloat sy_n = cp.N.y();
+            GLfloat sz_n = cp.N.z();
 
             GLfloat new_sx = (sx * cos(theta) + sz * sin(theta));
             GLfloat new_sy = sy;
@@ -63,9 +63,9 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
             Vector3f sV(new_sx, new_sy, new_sz);
             temp_VV.push_back(sV);
 
-            GLfloat new_sx_n = (sx_n * cos(theta) + sz_n * sin(theta));
+            GLfloat new_sx_n = sx_n * cos(theta) - sz_n * sin(theta);
             GLfloat new_sy_n = sy_n;
-            GLfloat new_sz_n = (sz_n * cos(theta) - sx_n * sin(theta));
+            GLfloat new_sz_n = sx_n * sin(theta) + sz_n * cos(theta);
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
             temp_VN.push_back(sN);
 
@@ -100,8 +100,6 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
     surface.VF = VF;
     surface.VN = VN;
     surface.VV = VV;
-
-    cerr << "\t>>> makeSurfRev called (but not implemented).\n\t>>> Returning empty surface." << endl;
  
     return surface;
 }
