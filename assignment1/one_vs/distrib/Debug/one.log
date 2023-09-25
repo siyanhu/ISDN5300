@@ -1,8 +1,27 @@
-﻿  surf.cpp
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(42,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(50,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(60,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(62,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(65,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(67,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+﻿  main.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(101,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(102,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(102,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(104,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(105,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(106,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(106,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(108,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(108,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(110,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(110,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(111,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(112,25): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(112,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(113,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(113,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(114,25): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(114,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(115,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(293,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(293,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(293,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(294,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(294,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(294,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
   one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe
