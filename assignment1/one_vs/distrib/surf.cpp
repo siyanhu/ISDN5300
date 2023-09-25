@@ -63,7 +63,7 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
 
     for (int div = 0; div < steps; ++div) {
         if (div > 0.0f) {
-            theta = 360.0f / steps * (M_PI / 360.0f);
+            theta = 360.0f / steps * (M_PI / 180.0f);
         }
 
         vector<Vector3f> temp_VV;

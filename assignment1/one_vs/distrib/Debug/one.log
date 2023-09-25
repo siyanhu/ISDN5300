@@ -1,10 +1,30 @@
-﻿  surf.cpp
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(64,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(72,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(82,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(84,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(87,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(89,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(160,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(183,27): warning C4018: '<': signed/unsigned mismatch
+﻿  main.cpp
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(83,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(84,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(84,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(86,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(87,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(88,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(88,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(90,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(90,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(92,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(92,18): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(93,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(94,25): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(94,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(95,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(95,19): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(96,26): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(96,21): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(97,24): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(276,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(276,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(276,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(277,32): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(277,37): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(277,42): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(287,27): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(366,31): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\main.cpp(422,31): warning C4018: '<': signed/unsigned mismatch
   one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe

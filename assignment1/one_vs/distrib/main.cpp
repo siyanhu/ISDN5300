@@ -96,7 +96,7 @@ namespace
     Vector3f cp13(- 1.8, 1.9, 0);
     Vector3f cp14(1.0, 1.76, 0);
     Vector3f cp15(-1.0, 1.5, 0);
-    int total_curve_num = 2;
+    int total_curve_num = 4;
 
     //DEFINED BY SIYAN END
 
@@ -363,7 +363,10 @@ namespace
         }
 
         if (rev == 2) {
-            for (int i = 0; i < cyl_surf.size() - 1; i++) {
+            for (int i = 0; i < cyl_surf.size() - 1; i+=2) {
+                if (i == 0) {
+                    continue;
+                }
                 Curve profile = cyl_surf[i];
                 Curve sweep = cyl_surf[i + 1];
                 Surface surface = makeGenCyl(profile, sweep);
@@ -416,7 +419,10 @@ namespace
         }
 
         if (rev == 2) {
-            for (int i = 0; i < cyl_surf.size() - 1; i++) {
+            for (int i = 0; i < cyl_surf.size() - 1; i += 2) {
+                if (i == 0) {
+                    continue;
+                }
                 Curve profile = cyl_surf[i];
                 Curve sweep = cyl_surf[i + 1];
                 Surface surface = makeGenCyl(profile, sweep);
@@ -556,7 +562,7 @@ int main( int argc, char* argv[] )
                 cin >> step;
                 cout << endl << "type the steps of surface:" << endl;
                 cin >> surfstep;
-                cout << endl << "type 1 for Revolution, 2 for sweep:" << endl;
+                cout << endl << "type 1 for Revolution, 2 for sweep:"<<endl<<"NOTES: preset curves only have two sets for revolution; one sets for sweep." << endl;
                 cin >> rev;
                 loadBezierCurve(step, surfstep, rev);
             }
@@ -568,7 +574,7 @@ int main( int argc, char* argv[] )
                 cin >> step;
                 cout << endl << "type the steps of surface:" << endl;
                 cin >> surfstep;
-                cout << endl << "type 1 for Revolution, 2 for sweep:" << endl;
+                cout << endl << "type 1 for Revolution, 2 for sweep:" << endl << "NOTES: preset curves only have two sets for revolution; one sets for sweep." << endl;
                 cin >> rev;
                 loadBSplineCurve(step, surfstep, rev);
             }
