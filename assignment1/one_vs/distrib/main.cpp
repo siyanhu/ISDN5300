@@ -79,6 +79,7 @@ namespace
     void loadObjectFile(string filePath);
     void loadBezierCurve(int step, int surfstep, int rev);
     void loadBSplineCurve(int step, int surfstep, int rev);
+    void saveObject();
 
     Vector3f cp0(3.9, 0.0, 0);
     Vector3f cp1(4.2, -1.2, 0);
@@ -129,6 +130,10 @@ namespace
             gPointMode = (gPointMode+1)%2;
             break;            
         default:
+            case 'b':
+            case 'B':
+                saveObject();
+                break;
             cout << "Unhandled key press " << key << "." << endl;        
         }
 
@@ -319,6 +324,41 @@ namespace
 
     }
 
+    void saveObject() {
+        // This does OBJ file output
+        cerr << endl << "*** writing obj files ***" << endl;
+        cout << "Please type the file name: (exclude .obj && Generate files at current directory.)" << endl;
+        string prefix;
+        cin >> prefix;
+
+        for (unsigned i = 0; i < gSurfaceNames.size(); i++)
+        {
+            if (gSurfaceNames[i] != ".")
+            {
+                string filename =
+                    prefix + string("_")
+                    + gSurfaceNames[i]
+                    + string(".obj");
+
+                ofstream out(filename.c_str());
+
+                if (!out)
+                {
+                    cerr << "\acould not open file " << filename << ", skipping" << endl;
+                    out.close();
+                    continue;
+                }
+                else
+                {
+                    cout << filename << i << endl;
+                    outputObjFile(out, gSurfaces[i]);
+                    cerr << "wrote " << filename << endl;
+                }
+            }
+        }
+
+    }
+
     void loadBezierCurve(int step, int surfstep, int rev) {
         
         vector<Curve> cyl_surf;
@@ -356,6 +396,8 @@ namespace
             if (rev == 1) {
                 Surface surface = makeSurfRev(curve, step);
                 gSurfaces.push_back(surface);
+                string surface_index = to_string(i);
+                gSurfaceNames.push_back(surface_index);
             }
             else if (rev == 2) {
                 cyl_surf.push_back(curve);
@@ -371,6 +413,10 @@ namespace
                 Curve sweep = cyl_surf[i + 1];
                 Surface surface = makeGenCyl(profile, sweep);
                 gSurfaces.push_back(surface);
+
+                string surface_index = to_string(i);
+                gSurfaceNames.push_back(surface_index);
+
             }
         }
     }
@@ -412,6 +458,8 @@ namespace
             if (rev == 1) {
                 Surface surface = makeSurfRev(curve, step);
                 gSurfaces.push_back(surface);
+                string surface_index = to_string(i);
+                gSurfaceNames.push_back(surface_index);
             }
             else if (rev == 2) {
                 cyl_surf.push_back(curve);
@@ -427,6 +475,9 @@ namespace
                 Curve sweep = cyl_surf[i + 1];
                 Surface surface = makeGenCyl(profile, sweep);
                 gSurfaces.push_back(surface);
+
+                string surface_index = to_string(i);
+                gSurfaceNames.push_back(surface_index);
             }
         }
     }
