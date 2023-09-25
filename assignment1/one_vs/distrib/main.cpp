@@ -43,7 +43,7 @@ namespace
     int  gPointMode = 1;
 
     // This detemines how big to draw the normals
-    const float gLineLen = 5.0f;
+    const float gLineLen = 1.0f;
     
     // These are arrays for display lists for each drawing mode.  The
     // convention is that drawmode 0 is "blank", and other drawmodes
@@ -80,22 +80,22 @@ namespace
     void loadBezierCurve(int step, int surfstep, int rev);
     void loadBSplineCurve(int step, int surfstep, int rev);
 
-    Vector3f cp0(0.9, 1.0, 0);
-    Vector3f cp1(1.2, -1.2, 0);
-    Vector3f cp2(1.5, 1.5, 0);
-    Vector3f cp3(1.8, -1.5, 0);
-    Vector3f cp4(1.5, 1.1, 0);
-    Vector3f cp5(-1.8, 2.3, 0);
-    Vector3f cp6(1.5, 2.5, 0);
-    Vector3f cp7(-1.8, 2.7, 0);
+    Vector3f cp0(3.9, 0.0, 0);
+    Vector3f cp1(4.2, -1.2, 0);
+    Vector3f cp2(4.5, 1.5, 0);
+    Vector3f cp3(4.8, -2.5, 0);
+    Vector3f cp4(-4.5, 1.1, 0);
+    Vector3f cp5(-2.8, 2.3, 0);
+    Vector3f cp6(-4.5, 2.5, 0);
+    Vector3f cp7(-2.8, 2.7, 0);
     Vector3f cp8(2.5, 1.5, 0);
     Vector3f cp9(2.4, -1.8, 0);
     Vector3f cp10(2.3, 1.5, 0);
     Vector3f cp11(2.2,- 1.8, 0);
-    Vector3f cp12(2.1, 1.8, 0);
-    Vector3f cp13(1.9,- 1.8, 0);
-    Vector3f cp14(1.7, 1.0, 0);
-    Vector3f cp15(1.5,- 1.0, 0);
+    Vector3f cp12(1.8, 2.1, 0);
+    Vector3f cp13(- 1.8, 1.9, 0);
+    Vector3f cp14(1.0, 1.76, 0);
+    Vector3f cp15(-1.0, 1.5, 0);
     int total_curve_num = 2;
 
     //DEFINED BY SIYAN END
@@ -282,6 +282,15 @@ namespace
         glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     }
 
+    vector <Vector3f> normalise_vector_list(const vector<Vector3f>& vec) {
+        vector < Vector3f> norm_vec;
+        for (int i = 0; i < vec.size(); i++) {
+            Vector3f newn (normalise_vector(vec[i]));
+            norm_vec.push_back(newn);
+        }
+        return norm_vec;
+    }
+
     void loadObjectFile(string filePath) {
         if (file_exist(filePath.c_str()) == 0) {
             cout << "FILE DOES NOT EXIST." << endl;
@@ -340,7 +349,7 @@ namespace
                 bz_controlPoints.push_back(cp15);
             }
 
-            gCtrlPoints.push_back(bz_controlPoints);
+            gCtrlPoints.push_back(normalise_vector_list(bz_controlPoints));
             Curve curve = evalBezier(bz_controlPoints, step);
             gCurves.push_back(curve);
 
@@ -514,7 +523,6 @@ namespace
         glEndList();
 
     }
-    
 }
 
 // Main routine.

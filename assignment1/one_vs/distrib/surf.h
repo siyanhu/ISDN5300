@@ -28,6 +28,8 @@ void drawSurface( const Surface& surface, bool shaded );
 // This draws normals to the surface at each vertex of length len.
 void drawNormals( const Surface& surface, float len );
 
+Vector3f normalise_vector(Vector3f vec);
+
 // Sweep a profile curve that lies flat on the xy-plane around the
 // y-axis.  The number of divisions is given by steps.
 Surface makeSurfRev( const Curve& profile, unsigned steps );

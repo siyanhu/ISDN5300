@@ -22,23 +22,24 @@ namespace
 
 
 Vector3f normalise_vector(Vector3f vec) {
-    GLfloat x = vec.x();
-    GLfloat y = vec.y();
-    GLfloat z = vec.z();
-    GLfloat len = std::sqrt(x * x + y * y + z * z);
+    //GLfloat x = vec.x();
+    //GLfloat y = vec.y();
+    //GLfloat z = vec.z();
+    //GLfloat len = std::sqrt(x * x + y * y + z * z);
 
-    if (len != 0.)
-    {
-        x /= len;
-        y /= len;
-        z /= len;
+    //if (len != 0.)
+    //{
+    //    x /= len;
+    //    y /= len;
+    //    z /= len;
 
-        Vector3f n_vec(x, y, z);
-        return n_vec;
-    }
-    else {
-        return vec;
-    }
+    //    Vector3f n_vec(x, y, z);
+    //    return n_vec;
+    //}
+    //else {
+    //    return vec;
+    //}
+    return vec;
 } 
 
 Surface makeSurfRev(const Curve &profile, unsigned steps)
@@ -89,6 +90,12 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
 
             if (i > 0) {
+                Vector3f last_old_vector(sx, sy, sz);
+                Vector3f last_old_normal(sx_n, sy_n, sz_n);
+
+                VV.push_back(last_old_vector);
+                VN.push_back(last_old_normal);
+
                 Vector3f last_new_vector = temp_VV.back();
                 Vector3f last_new_normal = temp_VN.back();
 
@@ -104,7 +111,7 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
                 Tup3u sF(current_tag_index, current_tag_index - 1, current_tag_index + 1);
                 VF.push_back(sF);
 
-                Tup3u sF_sym(current_tag_index - 2, current_tag_index - 1, current_tag_index);
+                Tup3u sF_sym(current_tag_index, current_tag_index - 2, current_tag_index - 1);
                 VF.push_back(sF_sym);
             }
             else {
@@ -161,10 +168,15 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
     for (int div = 0; div < sweep.size(); ++div) {
 
         CurvePoint sweep_cp = sweep[div];
-        Vector3f N = normalise_vector(sweep_cp.N);
-        Vector3f B = normalise_vector(sweep_cp.B);
-        Vector3f T = normalise_vector(sweep_cp.T);
-        Vector3f V = normalise_vector(sweep_cp.V);
+        //Vector3f N = normalise_vector(sweep_cp.N);
+        //Vector3f B = normalise_vector(sweep_cp.B);
+        //Vector3f T = normalise_vector(sweep_cp.T);
+        //Vector3f V = normalise_vector(sweep_cp.V);
+
+        Vector3f N = sweep_cp.N;
+        Vector3f B = sweep_cp.B;
+        Vector3f T = sweep_cp.T;
+        Vector3f V = sweep_cp.V;
 
         GLfloat trans[4][4] = {
             {N.x(), B.x(), T.x(), V.x()},
@@ -272,8 +284,8 @@ void drawSurface(const Surface &surface, bool shaded)
         glDisable(GL_LIGHTING);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         
-        glColor4f(0.4f,0.4f,0.4f,1.f);
-        glLineWidth(1);
+        glColor4f(0.8f,0.8f,0.6f,1.f);
+        glLineWidth(5);
     }
 
     glBegin(GL_TRIANGLES);

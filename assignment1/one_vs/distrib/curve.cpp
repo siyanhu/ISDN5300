@@ -20,6 +20,27 @@ namespace
 }
  
 
+Vector3f normalise_vectorr(Vector3f vec) {
+    return vec;
+    //GLfloat x = vec.x();
+    //GLfloat y = vec.y();
+    //GLfloat z = vec.z();
+    //GLfloat len = std::sqrt(x * x + y * y + z * z);
+
+    //if (len != 0.)
+    //{
+    //    x /= len;
+    //    y /= len;
+    //    z /= len;
+
+    //    Vector3f n_vec(x, y, z);
+    //    return n_vec;
+    //}
+    //else {
+    //    return vec;
+    //}
+}
+
 Curve evalBezier( const vector< Vector3f >& P, unsigned steps )
 {
     // Check
@@ -104,10 +125,10 @@ Curve evalBezier( const vector< Vector3f >& P, unsigned steps )
         Vector3f B (x_ppp, y_ppp, z_ppp);
         
         CurvePoint cp;
-        cp.V = V;
-        cp.N = N;
-        cp.T = T;
-        cp.B = B;
+        cp.V = normalise_vectorr(V);
+        cp.N = normalise_vectorr(N);
+        cp.T = normalise_vectorr(T);
+        cp.B = normalise_vectorr(B);
 
         curve_points.push_back(cp);
 
