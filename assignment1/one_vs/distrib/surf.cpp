@@ -22,23 +22,23 @@ namespace
 
 
 Vector3f normalise_vector(Vector3f vec) {
-    //GLfloat x = vec.x();
-    //GLfloat y = vec.y();
-    //GLfloat z = vec.z();
-    //GLfloat len = std::sqrt(x * x + y * y + z * z);
+    GLfloat x = vec.x();
+    GLfloat y = vec.y();
+    GLfloat z = vec.z();
+    GLfloat len = std::sqrt(x * x + y * y + z * z);
 
-    //if (len != 0.)
-    //{
-    //    x /= len;
-    //    y /= len;
-    //    z /= len;
+    if (len != 0.)
+    {
+        x /= len;
+        y /= len;
+        z /= len;
 
-    //    Vector3f n_vec(x, y, z);
-    //    return n_vec;
-    //}
-    //else {
-    //    return vec;
-    //}
+        Vector3f n_vec(x, y, z);
+        return n_vec;
+    }
+    else {
+        return vec;
+    }
     return vec;
 } 
 
@@ -63,7 +63,7 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
 
     for (int div = 0; div < steps; ++div) {
         if (div > 0.0f) {
-            theta = 180.0f / steps * (M_PI / 180.0f);
+            theta = 360.0f / steps * (M_PI / 360.0f);
         }
 
         vector<Vector3f> temp_VV;
@@ -190,33 +190,31 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
             GLfloat sy_n = cp.N.y();
             GLfloat sz_n = cp.N.z();
 
-            GLfloat new_sx = sx * N.x() + sy * B.x() + sz * T.x() + V.x();
-            GLfloat new_sy = sx * N.y() + sy * B.y() + sz * T.y() + V.y();
-            GLfloat new_sz = sx * N.z() + sy * B.z() + sz * T.z() + V.z();
+            GLfloat new_sx = sx * N.y() + sx * B.y() + sx * T.y() + V.x();
+            GLfloat new_sy = sy * N.y() + sy * B.y() + sy * T.y() + V.y();
+            GLfloat new_sz = sz * N.z() + sz * B.z() + sz * T.z() + V.z();
             Vector3f sV(new_sx, new_sy, new_sz);
 
-            GLfloat new_sx_n = sx_n * N.x() + sy_n * B.x() + sz_n * T.x() + V.x();
-            GLfloat new_sy_n = sx_n * N.y() + sy_n * B.y() + sz_n * T.y() + V.y();
-            GLfloat new_sz_n = sx_n * N.z() + sy_n * B.z() + sz_n * T.z() + V.z();
+            GLfloat new_sx_n = sx_n * N.x() + sx_n * B.x() + sx_n * T.x() + V.x();
+            GLfloat new_sy_n = sy_n * N.y() + sy_n * B.y() + sy_n * T.y() + V.y();
+            GLfloat new_sz_n = sz_n * N.z() + sz_n * B.z() + sz_n * T.z() + V.z();
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
 
             if (i > 0) {
-                Vector3f last_new_vector = temp_VV.back();
-                Vector3f last_new_normal = temp_VN.back();
+                Vector3f last_old_vector(sx, sy, sz);
+                Vector3f last_old_normal(sx_n, sy_n, sz_n);
 
-                int current_tag_index = VV.size();
+                VV.push_back(last_old_vector);
+                VN.push_back(last_old_normal);
+                int current_tag_index = VV.size() - 1;
 
                 VV.push_back(sV);
-                VV.push_back(last_new_vector);
-
                 VN.push_back(sN);
-                VN.push_back(last_new_normal);
-
 
                 Tup3u sF(current_tag_index, current_tag_index - 1, current_tag_index + 1);
                 VF.push_back(sF);
 
-                Tup3u sF_sym(current_tag_index - 2, current_tag_index - 1, current_tag_index);
+                Tup3u sF_sym(current_tag_index, current_tag_index - 2, current_tag_index - 1);
                 VF.push_back(sF_sym);
             }
             else {

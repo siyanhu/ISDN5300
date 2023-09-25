@@ -402,7 +402,7 @@ namespace
                 bz_controlPoints.push_back(cp15);
             }
 
-            gCtrlPoints.push_back(bz_controlPoints);
+            gCtrlPoints.push_back(normalise_vector_list(bz_controlPoints));
             Curve curve = evalBspline(bz_controlPoints, step);
             gCurves.push_back(curve);
 
