@@ -5,6 +5,6 @@ D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(82,28): warning C4244: 'ini
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(84,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(87,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
 D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(89,30): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(168,27): warning C4018: '<': signed/unsigned mismatch
-D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(191,27): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(160,27): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment1\one_vs\distrib\surf.cpp(183,27): warning C4018: '<': signed/unsigned mismatch
   one.vcxproj -> D:\Gits\ISDN5300\assignment1\one_vs\distrib\Debug\one.exe

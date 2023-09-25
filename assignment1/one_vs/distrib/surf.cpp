@@ -95,18 +95,10 @@ Surface makeSurfRev(const Curve &profile, unsigned steps)
 
                 VV.push_back(last_old_vector);
                 VN.push_back(last_old_normal);
-
-                Vector3f last_new_vector = temp_VV.back();
-                Vector3f last_new_normal = temp_VN.back();
-
-                int current_tag_index = VV.size();
+                int current_tag_index = VV.size() - 1;
 
                 VV.push_back(sV);
-                VV.push_back(last_new_vector);
-                
                 VN.push_back(sN);
-                VN.push_back(last_new_normal);
-                
 
                 Tup3u sF(current_tag_index, current_tag_index - 1, current_tag_index + 1);
                 VF.push_back(sF);
