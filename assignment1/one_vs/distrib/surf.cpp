@@ -160,10 +160,6 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
     for (int div = 0; div < sweep.size(); ++div) {
 
         CurvePoint sweep_cp = sweep[div];
-        //Vector3f N = normalise_vector(sweep_cp.N);
-        //Vector3f B = normalise_vector(sweep_cp.B);
-        //Vector3f T = normalise_vector(sweep_cp.T);
-        //Vector3f V = normalise_vector(sweep_cp.V);
 
         Vector3f N = sweep_cp.N;
         Vector3f B = sweep_cp.B;
@@ -190,14 +186,14 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
             GLfloat sy_n = cp.N.y();
             GLfloat sz_n = cp.N.z();
 
-            GLfloat new_sx = sx * N.y() + sx * B.y() + sx * T.y() + V.x();
-            GLfloat new_sy = sy * N.y() + sy * B.y() + sy * T.y() + V.y();
-            GLfloat new_sz = sz * N.z() + sz * B.z() + sz * T.z() + V.z();
+            GLfloat new_sx = sx * N.x() + sy * B.x() + sz * T.x() + V.x();
+            GLfloat new_sy = sx * N.y() + sy * B.y() + sy * T.y() + V.y();
+            GLfloat new_sz = sx * N.z() + sy * B.z() + sz * T.z() + V.z();
             Vector3f sV(new_sx, new_sy, new_sz);
 
-            GLfloat new_sx_n = sx_n * N.x() + sx_n * B.x() + sx_n * T.x() + V.x();
-            GLfloat new_sy_n = sy_n * N.y() + sy_n * B.y() + sy_n * T.y() + V.y();
-            GLfloat new_sz_n = sz_n * N.z() + sz_n * B.z() + sz_n * T.z() + V.z();
+            GLfloat new_sx_n = sx_n * N.x() + sy_n * B.x() + sz_n * T.x() + V.x();
+            GLfloat new_sy_n = sx_n * N.y() + sy_n * B.y() + sy_n * T.y() + V.y();
+            GLfloat new_sz_n = sx_n * N.z() + sy_n * B.z() + sz_n * T.z() + V.z();
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
 
             if (i > 0) {

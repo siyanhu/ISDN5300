@@ -462,7 +462,9 @@ namespace
                 gSurfaceNames.push_back(surface_index);
             }
             else if (rev == 2) {
+
                 cyl_surf.push_back(curve);
+
             }
         }
 
