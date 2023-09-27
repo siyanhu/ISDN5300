@@ -167,7 +167,8 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
         Vector3f V = sweep_cp.V;
 
         GLfloat trans[4][4] = {
-            {N.x(), B.x(), T.x(), V.x()},
+            {N.x()
+            , B.x(), T.x(), V.x()},
             {N.y(), B.y(), T.y(), V.y()},
             {N.z(), B.z(), T.z(), V.z()},
             {0.0f, 0.0f, 0.0f, 1.0}
@@ -187,12 +188,12 @@ Surface makeGenCyl(const Curve &profile, const Curve &sweep)
             GLfloat sz_n = cp.N.z();
 
             GLfloat new_sx = sx * N.x() + sy * B.x() + sz * T.x() + V.x();
-            GLfloat new_sy = sx * N.y() + sy * B.y() + sy * T.y() + V.y();
+            GLfloat new_sy = sx * N.y() + sy * B.y() + sz * T.y() + V.y();
             GLfloat new_sz = sx * N.z() + sy * B.z() + sz * T.z() + V.z();
             Vector3f sV(new_sx, new_sy, new_sz);
 
             GLfloat new_sx_n = sx_n * N.x() + sy_n * B.x() + sz_n * T.x() + V.x();
-            GLfloat new_sy_n = sx_n * N.y() + sy_n * B.y() + sy_n * T.y() + V.y();
+            GLfloat new_sy_n = sx_n * N.y() + sy_n * B.y() + sz_n * T.y() + V.y();
             GLfloat new_sz_n = sx_n * N.z() + sy_n * B.z() + sz_n * T.z() + V.z();
             Vector3f sN(new_sx_n, new_sy_n, new_sz_n);
 
