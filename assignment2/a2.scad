@@ -148,13 +148,17 @@ module letter_E() {
     }
 }
 
-
-// Display
-for (i=[0:1:thickness]) {
-    color("blue") translate([10, 0, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 90])  letter_G();
-    color("red") translate([0, 90, i]) letter_O();
-    color("yellow") translate([0, 200, i]) letter_O();
-    color("blue") translate([10, 320, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 80])  letter_G();
-    color("green") translate([-60, 380, i]) letter_L();
-    color("red") translate([-60, 480, i]) letter_E();
+module google(tckn) {
+    for (i=[0:1:tckn]) {
+        color("blue") translate([10, 0, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 90])  letter_G();
+        color("red") translate([0, 90, i]) letter_O();
+        color("yellow") translate([0, 200, i]) letter_O();
+        color("blue") translate([10, 320, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 80])  letter_G();
+        color("green") translate([-60, 380, i]) letter_L();
+        color("red") translate([-60, 480, i]) letter_E();
+    }
 }
+
+
+// Display - Static Google
+google(thickness);
