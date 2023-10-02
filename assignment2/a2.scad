@@ -180,18 +180,43 @@ module letter_E() {
     }
 }
 
-module google(tckn) {
-    for (i=[0:1:tckn]) {
-        color("blue") translate([10, 0, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 90])  letter_G();
-        color("red") translate([0, 90, i]) letter_O();
-        color("yellow") translate([0, 200, i]) letter_O();
-        color("blue") translate([10, 320, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 80])  letter_G();
-        color("green") translate([-60, 390, i]) letter_L();
-        color("red") translate([-60, 480, i]) letter_E();
+module google() {
+    color("blue") translate([10, 0, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+        letter_G();
+    }
+
+    color("red") translate([0, 90, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+        letter_O();
+    }
+
+    color("yellow") translate([0, 200, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+         letter_O();
+    }
+
+    color("blue") translate([10, 320, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+        letter_G();
+    }
+
+    color("green") translate([-60, 390, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+        letter_L();
+    }
+
+    color("red") translate([-60, 480, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+        letter_E();
     }
 }
 
 
 // Display - Static Google
-google(thickness);
-//letter_L();
+//translate([0, -210, 0]) google();
+
+// Display - Dynamic Google
+module motion(deg) {
+    r = 10;
+    x = cos(deg) * r;
+    y = sin(deg) * r;
+    translate([x, y, 0]);
+    google();
+}
+
+motion($t * 1000);
