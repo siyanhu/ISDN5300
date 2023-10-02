@@ -1,10 +1,10 @@
 // Parameters
 $fn = 200;
 t_step = 0.01;
+extrude_scale = 1.0;
+extrude_slice = 50;
 curve_width = 5;
-thickness = 18;
-full_height = 10;
-inner_vase = "YES";
+thickness = 50;
 
 
 // Shape Module - PolyLine
@@ -181,42 +181,42 @@ module letter_E() {
 }
 
 module google() {
-    color("blue") translate([10, 0, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("blue") translate([10, 0, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
         letter_G();
     }
 
-    color("red") translate([0, 90, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("red") translate([0, 90, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
         letter_O();
     }
 
-    color("yellow") translate([0, 200, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("yellow") translate([0, 200, 1]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
          letter_O();
     }
 
-    color("blue") translate([10, 320, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("blue") translate([10, 320, 1]) scale([3, 3.5, 1]) rotate([0, 0, 90]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
         letter_G();
     }
 
-    color("green") translate([-60, 390, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("green") translate([-60, 390, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
         letter_L();
     }
 
-    color("red") translate([-60, 480, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = 20, scale = 1.0, $fn = 100) {
+    color("red") translate([-60, 480, 0]) linear_extrude(height = thickness, center = true, convexity = 10, slices = extrude_slice, scale = extrude_scale, $fn = 100) {
         letter_E();
     }
 }
 
 
 // Display - Static Google
-//translate([0, -210, 0]) google();
+translate([0, -210, 0]) google();
 
 // Display - Dynamic Google
-module motion(deg) {
-    r = 10;
-    x = cos(deg) * r;
-    y = sin(deg) * r;
-    translate([x, y, 0]);
-    google();
-}
-
-motion($t * 1000);
+//module motion(deg) {
+//    r = 10;
+//    x = cos(deg) * r;
+//    y = sin(deg) * r;
+//    translate([x, y, 0]);
+//    google();
+//}
+//
+//motion($t * 1000);
