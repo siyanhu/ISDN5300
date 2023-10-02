@@ -126,25 +126,57 @@ module letter_O() {
 }
 
 module letter_L() {
+    unit_len = curve_width * 5;
     union() {
-        cube([100, curve_width * 4, 1]);
-        translate([100, 0, 0]) rotate([90, 0, 180]) 
-        cube([curve_width * 4, 1, 65]);
+        translate([unit_len * 3, 0, 0])
+        polygon(points=[
+            [0, 0], [unit_len, 0],
+            [unit_len, unit_len*2], [0, unit_len*2]
+        ]);
+        polygon(points=[
+            [0,0], [100, 0],
+            [100, -25], [0, -25]
+        ]);
     }
 }
 
 module letter_E() {
+    unit_len = curve_width * 5;
     union() {
-        translate([100, 0, 0]) rotate([90, 0, 180]) 
-        cube([curve_width * 4, 1, 65]);
         
-        translate([60, 0, 0]) rotate([90, 0, 180]) 
-        cube([curve_width * 4, 1, 65]);
+        translate([unit_len * 3, 0, 0])
+        polygon(points=[
+            [0, 0], [unit_len, 0],
+            [unit_len, unit_len*2], [0, unit_len*2]
+        ]);
         
-        translate([20, 0, 0]) rotate([90, 0, 180]) 
-        cube([curve_width * 4, 1, 65]);
+        translate([unit_len * 1.5, 0, 0])
+        polygon(points=[
+            [0, 0], [unit_len, 0],
+            [unit_len, unit_len*2], [0, unit_len*2]
+        ]);
         
-        cube([100, curve_width * 4, 1]);
+        translate([0, 0, 0])
+        polygon(points=[
+            [0, 0], [unit_len, 0],
+            [unit_len, unit_len*2], [0, unit_len*2]
+        ]);
+        
+        polygon(points=[
+            [0,0], [100, 0],
+            [100, -25], [0, -25]
+        ]);
+        
+//        translate([100, 0, 0]) rotate([90, 0, 180]) 
+//        cube([curve_width * 4, 1, 65]);
+//        
+//        translate([60, 0, 0]) rotate([90, 0, 180]) 
+//        cube([curve_width * 4, 1, 65]);
+//        
+//        translate([20, 0, 0]) rotate([90, 0, 180]) 
+//        cube([curve_width * 4, 1, 65]);
+//        
+//        cube([100, curve_width * 4, 1]);
     }
 }
 
@@ -154,7 +186,7 @@ module google(tckn) {
         color("red") translate([0, 90, i]) letter_O();
         color("yellow") translate([0, 200, i]) letter_O();
         color("blue") translate([10, 320, i]) scale([3, 3.5, 3.5]) rotate([0, 0, 80])  letter_G();
-        color("green") translate([-60, 380, i]) letter_L();
+        color("green") translate([-60, 390, i]) letter_L();
         color("red") translate([-60, 480, i]) letter_E();
     }
 }
@@ -162,3 +194,4 @@ module google(tckn) {
 
 // Display - Static Google
 google(thickness);
+//letter_L();

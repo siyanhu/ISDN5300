@@ -1,0 +1,13 @@
+{
+    "parameterSets": {
+        "design default values": {
+            "$fn": "200",
+            "curve_width": "5",
+            "full_height": "10",
+            "inner_vase": "YES",
+            "t_step": "0.01",
+            "thickness": "18"
+        }
+    },
+    "fileFormatVersion": "1"
+}
