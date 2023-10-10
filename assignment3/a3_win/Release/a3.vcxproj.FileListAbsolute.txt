@@ -1,1 +1,2 @@
 \\VDIDRIVE\MYHOME\tavu\Downloads\a3\Release\a3.exe
+D:\Gits\ISDN5300\assignment3\a3_win\Release\a3.exe

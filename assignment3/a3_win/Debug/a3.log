@@ -1,1 +1,36 @@
-﻿
+﻿  bitmap.cpp
+D:\Gits\ISDN5300\assignment3\a3_win\bitmap.cpp(22,17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment3\a3_win\bitmap.cpp(127,17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Joint.cpp
+  main.cpp
+D:\Gits\ISDN5300\assignment3\a3_win\main.cpp(49,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment3\a3_win\main.cpp(51,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment3\a3_win\main.cpp(53,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  MatrixStack.cpp
+  Mesh.cpp
+  modelerapp.cpp
+D:\Gits\ISDN5300\assignment3\a3_win\modelerapp.cpp(41,5): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  modelerui.cpp
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(69,19): warning C4018: '>=': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(94,27): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(89,21): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(91,36): warning C4101: 'twist': unreferenced local variable
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(91,29): warning C4101: 'dolly': unreferenced local variable
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(91,9): warning C4101: 'elevation': unreferenced local variable
+D:\Gits\ISDN5300\assignment3\a3_win\modelerui.cpp(91,20): warning C4101: 'azimuth': unreferenced local variable
+  ModelerView.cpp
+  SkeletalModel.cpp
+  Matrix2f.cpp
+  Matrix3f.cpp
+  Matrix4f.cpp
+  Quat4f.cpp
+  Vector2f.cpp
+  Vector3f.cpp
+  Vector4f.cpp
+  Generating Code...
+  camera.cpp
+fltk.lib(Fl_Box.obj) : error LNK2005: "public: __thiscall Fl_Box::Fl_Box(int,int,int,int,char const *)" (??0Fl_Box@@QAE@HHHHPBD@Z) already defined in modelerapp.obj
+fltk.lib(Fl_Double_Window.obj) : error LNK2005: "public: __thiscall Fl_Double_Window::Fl_Double_Window(int,int,char const *)" (??0Fl_Double_Window@@QAE@HHPBD@Z) already defined in modelerui.obj
+fltk.lib(Fl_Menu_Bar.obj) : error LNK2005: "public: __thiscall Fl_Menu_Bar::Fl_Menu_Bar(int,int,int,int,char const *)" (??0Fl_Menu_Bar@@QAE@HHHHPBD@Z) already defined in modelerui.obj
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+D:\Gits\ISDN5300\assignment3\a3_win\Debug\a3.exe : fatal error LNK1169: one or more multiply defined symbols found
