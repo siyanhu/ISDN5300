@@ -1,0 +1,2 @@
+﻿LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+  a3.vcxproj -> \\VDIDRIVE\MYHOME\tavu\Downloads\a3\Release\a3.exe
