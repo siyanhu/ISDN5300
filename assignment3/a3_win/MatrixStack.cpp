@@ -3,17 +3,32 @@
 MatrixStack::MatrixStack()
 {
 	// Initialize the matrix stack with the identity matrix.
+	m_matrices = std::vector<Matrix4f>();
+	Matrix4f id_ma;
+	id_ma.identity();
+	m_matrices.push_back(id_ma);
+}
+
+void MatrixStack::mulitMatrix(const Matrix4f& m) {
+	
+
 }
 
 void MatrixStack::clear()
 {
 	// Revert to just containing the identity matrix.
+	m_matrices.clear();
+	Matrix4f id_ma;
+	id_ma.identity();
+	m_matrices.push_back(id_ma);
 }
 
 Matrix4f MatrixStack::top()
 {
 	// Return the top of the stack
-	return Matrix4f();
+	Matrix4f top_elem = m_matrices.back();
+	return top_elem;
+	// return Matrix4f();
 }
 
 void MatrixStack::push( const Matrix4f& m )
@@ -21,9 +36,12 @@ void MatrixStack::push( const Matrix4f& m )
 	// Push m onto the stack.
 	// Your stack should have OpenGL semantics:
 	// the new top should be the old top multiplied by m
+	m_matrices.push_back(m);
+
 }
 
 void MatrixStack::pop()
 {
 	// Remove the top element from the stack
+	m_matrices.erase(m_matrices.end() - 1, m_matrices.end());
 }

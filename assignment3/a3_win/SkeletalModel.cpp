@@ -4,6 +4,12 @@
 
 using namespace std;
 
+// SIYAN defined Functions
+bool file_exist(const char* fileName) {
+    std::ifstream infile(fileName);
+    return infile.good();
+}
+
 void SkeletalModel::load(const char *skeletonFile, const char *meshFile, const char *attachmentsFile)
 {
 	loadSkeleton(skeletonFile);
@@ -39,9 +45,49 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 	}
 }
 
-void SkeletalModel::loadSkeleton( const char* filename )
+void SkeletalModel::loadSkeleton(const char* filename)
 {
 	// Load the skeleton from file here.
+	string filepath = filename;
+	if (file_exist(filename) == 0) {
+		cerr << "ERROR: File Does Not Exist." << endl;
+		exit(0);
+	}
+
+	ifstream in(filename);
+	if (!in) {
+		cerr << "ERROR: File " << filename << "Not Found." << endl;
+		exit(0);
+	}
+
+	cout << "Loading Skeleteon File" << filename << endl;
+	GLfloat a, b, c;
+	unsigned d;
+	vector<Vector4f> readings;
+	while (in >> a >> b >> c >> d) {
+		Vector4f vec(a, b, c, d);
+		readings.push_back(vec);
+	}
+
+	for (unsigned i = 0; i < readings.size(); ++i) {
+		Vector4f vec = readings[i];
+		Joint* newJ = new Joint;
+		newJ->transform = Matrix4f(0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			a, b, c, 0);
+		m_joints.push_back(newJ);
+		if (i == 0) {
+			m_rootJoint = newJ;
+		}
+	}
+
+	for (unsigned i = 0; i < m_joints.size(); ++i) {
+		Joint* currentJ = m_joints[i];
+		Vector4f vec = readings[i];
+		d = vec[3];
+		currentJ->children.push_back(m_joints[d]);
+	}
 }
 
 void SkeletalModel::drawJoints( )
@@ -55,6 +101,15 @@ void SkeletalModel::drawJoints( )
 	// (glPushMatrix, glPopMatrix, glMultMatrix).
 	// You should use your MatrixStack class
 	// and use glLoadMatrix() before your drawing call.
+
+	MatrixStack stack;
+	for (unsigned i = 0; i < m_joints.size(); i++) {
+		Joint* newJ = m_joints[i];
+		stack.push(newJ->transform);
+
+	}
+
+
 }
 
 void SkeletalModel::drawSkeleton( )

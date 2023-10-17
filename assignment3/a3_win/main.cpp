@@ -37,7 +37,7 @@ int main( int argc, char* argv[] )
     // - minimum slider value
     // - maximum slider value
     // - step size for slider
-    // - initial slider value
+    // - initial slider 
 
 	const int NUM_JOINTS = 18;
 
