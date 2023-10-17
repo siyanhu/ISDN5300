@@ -1,6 +1,4 @@
-﻿  SkeletalModel.cpp
-D:\Gits\ISDN5300\assignment3\a3_win\SkeletalModel.cpp(68,25): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Gits\ISDN5300\assignment3\a3_win\SkeletalModel.cpp(88,12): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
+﻿  Mesh.cpp
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
 fltkgl.lib(Fl_Gl_Choice.obj) : warning LNK4204: '' is missing debugging information for referencing module; linking object as if no debug info
 fltkgl.lib(Fl_Gl_Device_Plugin.obj) : warning LNK4204: '' is missing debugging information for referencing module; linking object as if no debug info

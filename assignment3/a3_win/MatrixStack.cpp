@@ -9,11 +9,6 @@ MatrixStack::MatrixStack()
 	m_matrices.push_back(id_ma);
 }
 
-void MatrixStack::mulitMatrix(const Matrix4f& m) {
-	
-
-}
-
 void MatrixStack::clear()
 {
 	// Revert to just containing the identity matrix.
@@ -36,6 +31,10 @@ void MatrixStack::push( const Matrix4f& m )
 	// Push m onto the stack.
 	// Your stack should have OpenGL semantics:
 	// the new top should be the old top multiplied by m
+
+	//Matrix4f old_top = m_matrices.back();
+	//Matrix4f new_top = old_top * m;
+	//m_matrices.push_back(new_top);
 	m_matrices.push_back(m);
 
 }

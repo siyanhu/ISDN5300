@@ -48,7 +48,6 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 void SkeletalModel::loadSkeleton(const char* filename)
 {
 	// Load the skeleton from file here.
-	string filepath = filename;
 	if (file_exist(filename) == 0) {
 		cerr << "ERROR: File Does Not Exist." << endl;
 		exit(0);
@@ -62,7 +61,7 @@ void SkeletalModel::loadSkeleton(const char* filename)
 
 	cout << "Loading Skeleteon File" << filename << endl;
 	GLfloat a, b, c;
-	unsigned d;
+	int d;
 	vector<Vector4f> readings;
 	while (in >> a >> b >> c >> d) {
 		Vector4f vec(a, b, c, d);
@@ -77,17 +76,43 @@ void SkeletalModel::loadSkeleton(const char* filename)
 			0, 0, 0, 0,
 			a, b, c, 0);
 		m_joints.push_back(newJ);
-		if (i == 0) {
-			m_rootJoint = newJ;
-		}
 	}
 
 	for (unsigned i = 0; i < m_joints.size(); ++i) {
 		Joint* currentJ = m_joints[i];
 		Vector4f vec = readings[i];
 		d = vec[3];
-		currentJ->children.push_back(m_joints[d]);
+
+		if (d == -1) {
+			m_rootJoint = currentJ;
+			m_joints[i] = currentJ;
+		}
+		else {
+			Joint* parentJ = m_joints[d];
+			parentJ->children.push_back(currentJ);
+			m_joints[i] = currentJ;
+			m_joints[d] = parentJ;
+		}
 	}
+}
+void SkeletalModel::getChildren(const Joint* parent) {
+	Matrix4f parent_trans = parent->transform;
+	m_matrixStack.push(parent_trans);
+
+	glLoadMatrixf(m_matrixStack.top());
+
+	unsigned counter = 1;
+	for (int i = 0; i < parent->children.size(); ++i) {
+		if (nullptr != parent->children[i]) {
+			Joint* kid = parent->children[i];
+			if (kid->children.size() > 0) {
+				getChildren(kid);
+			}
+		}
+	}
+
+	m_matrixStack.pop();
+	glLoadMatrixf(m_matrixStack.top());
 }
 
 void SkeletalModel::drawJoints( )
@@ -101,20 +126,21 @@ void SkeletalModel::drawJoints( )
 	// (glPushMatrix, glPopMatrix, glMultMatrix).
 	// You should use your MatrixStack class
 	// and use glLoadMatrix() before your drawing call.
+	glutSolidSphere(0.025f, 12, 12);
+	Matrix4f current_trans = m_rootJoint->transform;
+	m_matrixStack.push(current_trans);
 
-	MatrixStack stack;
-	for (unsigned i = 0; i < m_joints.size(); i++) {
-		Joint* newJ = m_joints[i];
-		stack.push(newJ->transform);
+	glLoadMatrixf(m_matrixStack.top());
 
-	}
-
-
+	getChildren(m_rootJoint);
+	m_matrixStack.pop();
+	
 }
 
 void SkeletalModel::drawSkeleton( )
 {
-	// Draw boxes between the joints. You will need to add a recursive helper function to traverse the joint hierarchy.
+	// Draw boxes between the joints. You will need to add a recursive helper function to traverse the joint hierarchy
+	
 }
 
 void SkeletalModel::setJointTransform(int jointIndex, float rX, float rY, float rZ)

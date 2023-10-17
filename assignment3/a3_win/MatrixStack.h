@@ -8,7 +8,6 @@ class MatrixStack
 {
 public:
 	MatrixStack();
-	void mulitMatrix(const Matrix4f& m);
 	void clear();
 	Matrix4f top();
 	void push( const Matrix4f& m );
