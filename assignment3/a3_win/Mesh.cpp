@@ -13,7 +13,7 @@ void Mesh::load( const char* filename )
 		exit(0);
 	}
 
-	cout << "Loading Meshn File" << filename << endl;
+	cout << "Loading Meshn File " << filename << endl;
 	string a;
 	GLfloat b, c, d;
 	while (in >> a >> b >> c >> d) {
@@ -39,13 +39,13 @@ void Mesh::draw()
 	// rather than the analytical normals from
 	// assignment 1, the appearance is "faceted".
 
-	cout << "called mesh_draw?" << endl;
+	cout << "draw mesh now..." << endl;
 
-	glDisable(GL_LIGHTING);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glDisable(GL_LIGHTING);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	glColor4f(0.8f, 0.8f, 0.6f, 1.f);
-	glLineWidth(5);
+	//glColor4f(0.8f, 0.8f, 0.6f, 1.f);
+	//glLineWidth(5);
 
 	glBegin(GL_TRIANGLES);
 	for (unsigned i = 0; i < faces.size(); i++) {
@@ -55,7 +55,7 @@ void Mesh::draw()
 		Vector3f v2 = currentVertices[surface[0]];
 		Vector3f v3 = currentVertices[surface[0]];
 
-		Vector3f n1(v1[1] * v2[2] - v1[2] * v1[1], v1[2] * v2[0] - v1[0] * v2[2], v1[0] * v2[1] - v1[1] * v2[0]);
+		Vector3f n1(v1[1] * v2[2] - v1[2] * v2[1], v1[2] * v2[0] - v1[0] * v2[2], v1[0] * v2[1] - v1[1] * v2[0]);
 		Vector3f n2(v2[1] * v3[2] - v2[2] * v3[1], v2[2] * v3[0] - v2[0] * v3[2], v2[0] * v3[1] - v2[1] * v3[0]);
 		Vector3f n3(v3[1] * v1[2] - v3[2] * v1[1], v3[2] * v1[0] - v3[0] * v1[2], v3[0] * v1[1] - v3[1] * v1[0]);
 
@@ -83,7 +83,7 @@ void Mesh::loadAttachments( const char* filename, int numJoints )
 		exit(0);
 	}
 
-	cout << "Loading Attachments File" << filename << endl;
+	cout << "Loading Attachments File " << filename << endl;
 	float a, b, c, d, e, f, g, h,
 		j, k, l, m, n, o, p, q, r, s; 
 	while (in >> a >> b >> c >> d >> e >> f >> g >> h >> j >> k >> l >> m >> n >> o >> p >> q >> r >> s) {

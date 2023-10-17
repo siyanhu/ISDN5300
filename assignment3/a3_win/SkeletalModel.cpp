@@ -25,10 +25,10 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 {
 	// draw() gets called whenever a redraw is required
 	// (after an update() occurs, when the camera moves, the window is resized, etc)
+	cout << "SkeletalModel::draw" << endl;
 
 	m_matrixStack.clear();
 	m_matrixStack.push(cameraMatrix);
-
 	if( skeletonVisible )
 	{
 		drawJoints();
@@ -71,7 +71,8 @@ void SkeletalModel::loadSkeleton(const char* filename)
 	for (unsigned i = 0; i < readings.size(); ++i) {
 		Vector4f vec = readings[i];
 		Joint* newJ = new Joint;
-		newJ->transform = Matrix4f(0, 0, 0, 0,
+		newJ->transform = Matrix4f(
+			0, 0, 0, 0,
 			0, 0, 0, 0,
 			0, 0, 0, 0,
 			a, b, c, 0);
@@ -95,10 +96,10 @@ void SkeletalModel::loadSkeleton(const char* filename)
 		}
 	}
 }
+
 void SkeletalModel::getChildren(const Joint* parent) {
 	Matrix4f parent_trans = parent->transform;
 	m_matrixStack.push(parent_trans);
-
 	glLoadMatrixf(m_matrixStack.top());
 
 	unsigned counter = 1;
@@ -111,8 +112,8 @@ void SkeletalModel::getChildren(const Joint* parent) {
 		}
 	}
 
-	m_matrixStack.pop();
 	glLoadMatrixf(m_matrixStack.top());
+	m_matrixStack.pop();
 }
 
 void SkeletalModel::drawJoints( )
@@ -126,20 +127,34 @@ void SkeletalModel::drawJoints( )
 	// (glPushMatrix, glPopMatrix, glMultMatrix).
 	// You should use your MatrixStack class
 	// and use glLoadMatrix() before your drawing call.
-	glutSolidSphere(0.025f, 12, 12);
-	Matrix4f current_trans = m_rootJoint->transform;
-	m_matrixStack.push(current_trans);
 
+	Joint* current_node = m_rootJoint;
+	Matrix4f current_trans = m_rootJoint->transform;
+
+	m_matrixStack.push(current_trans);
+	glutSolidSphere(0.025f, 12, 12);
 	glLoadMatrixf(m_matrixStack.top());
 
 	getChildren(m_rootJoint);
+
 	m_matrixStack.pop();
+
+	glEnd();
 	
 }
 
 void SkeletalModel::drawSkeleton( )
 {
 	// Draw boxes between the joints. You will need to add a recursive helper function to traverse the joint hierarchy
+
+	glBegin(GL_POLYGON);
+	glutSolidCube(1.0f);
+
+	//GLfloat new_sx_n = sx_n * cos(theta) - sz_n * sin(theta);
+	//GLfloat new_sy_n = sy_n;
+	//GLfloat new_sz_n = sx_n * sin(theta) + sz_n * cos(theta);
+
+
 	
 }
 
