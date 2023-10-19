@@ -193,11 +193,11 @@ void SkeletalModel::recurseJointBind(Joint* joint, MatrixStack myStack, int flag
 
 	//flag == 0: Bind; flag == 1: Current
 	if (flag == 0) {
-		cout << endl << endl << "Recusing bindWorldToJointTransform " << endl;
+		//cout << endl << endl << "Recusing bindWorldToJointTransform " << endl;
 		joint->bindWorldToJointTransform = myStack.top().inverse();
 	}
 	else {
-		cout << endl << endl << "Recusing currentJointToWorldTransform " << endl;
+		//cout << endl << endl << "Recusing currentJointToWorldTransform " << endl;
 		joint->currentJointToWorldTransform = myStack.top();
 	}
 	

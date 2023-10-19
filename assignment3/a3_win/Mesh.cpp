@@ -88,12 +88,12 @@ void Mesh::draw()
 		n1 = n1.normalized();
 
 		glNormal3f(n1[0], n1[1], n1[2]);
-
-		glColor3f(get_a_random_indicator(), get_a_random_indicator(), get_a_random_indicator());
+		float color_indicator = get_a_random_indicator();
+		glColor3f(color_indicator, color_indicator, 0.0);
 		glVertex3f(t1[0], t1[1], t1[2]);
-		glColor3f(get_a_random_indicator(), get_a_random_indicator(), get_a_random_indicator());
+		glColor3f(0.0, color_indicator, 0.0);
 		glVertex3f(t3[0], t3[1], t3[2]);
-		glColor3f(get_a_random_indicator(), get_a_random_indicator(), get_a_random_indicator());
+		glColor3f(0.0, 0.0, color_indicator);
 		glVertex3f(t2[0], t2[1], t2[2]);
 
 	}
