@@ -34,6 +34,10 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 		drawJoints();
 
 		drawSkeleton();
+		glLoadMatrixf(m_matrixStack.top());
+
+		// Tell the mesh to draw itself.
+		m_mesh.draw();
 	}
 	else
 	{
