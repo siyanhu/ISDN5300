@@ -48,75 +48,57 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 void SkeletalModel::loadSkeleton(const char* filename)
 {
 	// Load the skeleton from file here.
-	if (file_exist(filename) == 0) {
-		cerr << "ERROR: File Does Not Exist." << endl;
-		exit(0);
-	}
+	cout << "Loading Meshn File " << filename << endl;
 
-	ifstream in(filename);
-	if (!in) {
-		cerr << "ERROR: File " << filename << "Not Found." << endl;
-		exit(0);
-	}
+	ifstream inFile;
+	inFile.open(filename);
 
-	cout << "Loading Skeleteon File" << filename << endl;
-	GLfloat a, b, c;
-	int d;
-	vector<Vector4f> readings;
-	while (in >> a >> b >> c >> d) {
-		Vector4f vec(a, b, c, d);
-		readings.push_back(vec);
-	}
+	vector<int> jointNumber;
+	vector< Joint* > jointList;
 
-	for (unsigned i = 0; i < readings.size(); ++i) {
-		Vector4f vec = readings[i];
-		Joint* newJ = new Joint;
-		newJ->transform = Matrix4f(
-			0, 0, 0, 0,
-			0, 0, 0, 0,
-			0, 0, 0, 0,
-			a, b, c, 0);
-		m_joints.push_back(newJ);
-	}
+	string line;
+	while (getline(inFile, line)) {
 
-	for (unsigned i = 0; i < m_joints.size(); ++i) {
-		Joint* currentJ = m_joints[i];
-		Vector4f vec = readings[i];
-		d = vec[3];
+		vector<string> jointString;
 
-		if (d == -1) {
-			m_rootJoint = currentJ;
-			m_joints[i] = currentJ;
+		stringstream s(line);
+		string temp;
+		while (getline(s, temp, ' ')) {
+			jointString.push_back(temp);
 		}
-		else {
-			Joint* parentJ = m_joints[d];
-			parentJ->children.push_back(currentJ);
-			m_joints[i] = currentJ;
-			m_joints[d] = parentJ;
-		}
+
+		Joint* joint = new Joint;
+		joint->transform = Matrix4f::translation((float)atof(jointString[0].c_str()),
+			(float)atof(jointString[1].c_str()),
+			(float)atof(jointString[2].c_str())
+		);
+		int parentIndex = (int)atof(jointString[3].c_str());
+
+		jointList.push_back(joint);
+		jointNumber.push_back(parentIndex);
 	}
+
+	for (unsigned int i = 1; i < jointNumber.size(); i++) {
+		jointList.at(jointNumber[i])->children.push_back(jointList[i]);
+	}
+
+	m_joints = jointList;
+	m_rootJoint = jointList.front();
 }
 
-void SkeletalModel::getChildren(const Joint* parent) {
-	Matrix4f parent_trans = parent->transform;
-	m_matrixStack.push(parent_trans);
-	glLoadMatrixf(m_matrixStack.top());
+void SkeletalModel::getChildren(Joint* joint, MatrixStack myMatrixS) {
+	myMatrixS.push(joint->transform);
 
-	unsigned counter = 1;
-	for (int i = 0; i < parent->children.size(); ++i) {
-		if (nullptr != parent->children[i]) {
-			Joint* kid = parent->children[i];
-			if (kid->children.size() > 0) {
-				getChildren(kid);
-			}
-		}
+	for (int i = 0; i < joint->children.size(); i++) {
+		getChildren(joint->children[i], myMatrixS);
 	}
 
-	glLoadMatrixf(m_matrixStack.top());
-	m_matrixStack.pop();
+	glLoadMatrixf(myMatrixS.top());
+	glutSolidSphere(0.025f, 12, 12);
+	myMatrixS.pop();
 }
 
-void SkeletalModel::drawJoints( )
+void SkeletalModel::drawJoints()
 {
 	// Draw a sphere at each joint. You will need to add a recursive helper function to traverse the joint hierarchy.
 	//
@@ -128,33 +110,66 @@ void SkeletalModel::drawJoints( )
 	// You should use your MatrixStack class
 	// and use glLoadMatrix() before your drawing call.
 
-	Joint* current_node = m_rootJoint;
-	Matrix4f current_trans = m_rootJoint->transform;
+	getChildren(m_rootJoint, m_matrixStack);
+}
 
-	m_matrixStack.push(current_trans);
-	glutSolidSphere(0.025f, 12, 12);
-	glLoadMatrixf(m_matrixStack.top());
+void SkeletalModel::getComponents(Joint* joint, MatrixStack myMatrixS, Joint* topNode) {
+	myMatrixS.push(joint->transform);
 
-	getChildren(m_rootJoint);
+	for (int i = 0; i < joint->children.size(); i++) {
+		getComponents(joint->children[i], myMatrixS, topNode);
+	}
 
-	m_matrixStack.pop();
+	myMatrixS.pop();	//Now referencing parent
 
-	glEnd();
-	
+	if (joint != topNode) {
+		Matrix4f translateZ = Matrix4f(
+			1, 0, 0, 0.0f,
+			0, 1, 0, 0.0f,
+			0, 0, 1, 0.5f,
+			0, 0, 0, 1);
+
+		Vector4f transCol = joint->transform.getCol(3);
+		float distL = Vector3f(transCol[0], transCol[1], transCol[2]).abs();
+
+		Matrix4f scaleMat = Matrix4f(
+			.05f, 0, 0, 0,
+			0, .05f, 0, 0,
+			0, 0, distL, 0,
+			0, 0, 0, 1);
+
+		Vector3f rnd = Vector3f(0, 0, 1);
+
+		Vector3f parentOffset = 1 * Vector3f(1 * transCol[0], 1 * transCol[1], 1 * transCol[2]);
+
+		Vector3f z = parentOffset.normalized();
+		Vector3f y = Vector3f::cross(z, rnd).normalized();
+		Vector3f x = Vector3f::cross(y, z).normalized();
+
+		Matrix4f coordReset = Matrix4f(x[0], y[0], z[0], 0.0f,
+			x[1], y[1], z[1], 0.0f,
+			x[2], y[2], z[2], 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f);
+
+		myMatrixS.push(coordReset);
+		myMatrixS.push(scaleMat);
+		myMatrixS.push(translateZ);
+
+		glLoadMatrixf(myMatrixS.top());
+		glutSolidCube(1.0f);
+
+		//Pop matrices that should come off stack when traversing through tree
+		myMatrixS.pop();
+		myMatrixS.pop();
+		myMatrixS.pop();
+
+	}
 }
 
 void SkeletalModel::drawSkeleton( )
 {
 	// Draw boxes between the joints. You will need to add a recursive helper function to traverse the joint hierarchy
-
-	glBegin(GL_POLYGON);
-	glutSolidCube(1.0f);
-
-	//GLfloat new_sx_n = sx_n * cos(theta) - sz_n * sin(theta);
-	//GLfloat new_sy_n = sy_n;
-	//GLfloat new_sz_n = sx_n * sin(theta) + sz_n * cos(theta);
-
-
+	getComponents(m_rootJoint, m_matrixStack, m_rootJoint);
 	
 }
 

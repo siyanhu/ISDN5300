@@ -41,7 +41,8 @@ public:
 	// 1.1. Implement method to load a skeleton.
 	// This method should compute m_rootJoint and populate m_joints.
 	void loadSkeleton( const char* filename );
-	void SkeletalModel::getChildren(const Joint *parent);
+	void SkeletalModel::getChildren(Joint* joint, MatrixStack myMatrixS);
+	void SkeletalModel::getComponents(Joint* joint, MatrixStack myMatrixS, Joint* topNode);
 
 	// 1.1. Implement this method with a recursive helper to draw a sphere at each joint.
 	void drawJoints( );

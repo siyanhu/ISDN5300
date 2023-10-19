@@ -1,4 +1,6 @@
-﻿  Mesh.cpp
+﻿  SkeletalModel.cpp
+D:\Gits\ISDN5300\assignment3\a3_win\SkeletalModel.cpp(92,20): warning C4018: '<': signed/unsigned mismatch
+D:\Gits\ISDN5300\assignment3\a3_win\SkeletalModel.cpp(119,20): warning C4018: '<': signed/unsigned mismatch
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
 fltkgl.lib(Fl_Gl_Choice.obj) : warning LNK4204: '' is missing debugging information for referencing module; linking object as if no debug info
 fltkgl.lib(Fl_Gl_Device_Plugin.obj) : warning LNK4204: '' is missing debugging information for referencing module; linking object as if no debug info

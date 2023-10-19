@@ -3,26 +3,20 @@
 MatrixStack::MatrixStack()
 {
 	// Initialize the matrix stack with the identity matrix.
-	m_matrices = std::vector<Matrix4f>();
-	Matrix4f id_ma;
-	id_ma.identity();
-	m_matrices.push_back(id_ma);
+	m_matrices.push_back(Matrix4f::identity());
 }
 
 void MatrixStack::clear()
 {
 	// Revert to just containing the identity matrix.
 	m_matrices.clear();
-	Matrix4f id_ma;
-	id_ma.identity();
-	m_matrices.push_back(id_ma);
+	m_matrices.push_back(Matrix4f::identity());
 }
 
 Matrix4f MatrixStack::top()
 {
 	// Return the top of the stack
-	Matrix4f top_elem = m_matrices[m_matrices.size() - 1];
-	return top_elem;
+	return m_matrices.back();
 	// return Matrix4f();
 }
 
@@ -42,8 +36,5 @@ void MatrixStack::push( const Matrix4f& m )
 void MatrixStack::pop()
 {
 	// Remove the top element from the stack
-	Matrix4f id_ma;
-	id_ma.identity();
-	m_matrices[m_matrices.size() - 1] = id_ma;
-	m_matrices.erase(m_matrices.end() - 1, m_matrices.end());
+	m_matrices.pop_back();
 }
