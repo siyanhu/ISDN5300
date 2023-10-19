@@ -187,6 +187,27 @@ void SkeletalModel::setJointTransform(int jointIndex, float rX, float rY, float 
 	m_joints[jointIndex]->transform.setSubmatrix3x3(0, 0, upperLeftR);
 }
 
+void SkeletalModel::recurseJointBind(Joint* joint, MatrixStack myStack, int flag) {
+	
+	myStack.push(joint->transform);
+
+	//flag == 0: Bind; flag == 1: Current
+	if (flag == 0) {
+		cout << endl << endl << "Recusing bindWorldToJointTransform " << endl;
+		joint->bindWorldToJointTransform = myStack.top().inverse();
+	}
+	else {
+		cout << endl << endl << "Recusing currentJointToWorldTransform " << endl;
+		joint->currentJointToWorldTransform = myStack.top();
+	}
+	
+
+	for (int i = 0; i < joint->children.size(); i++) {
+		recurseJointBind(joint->children[i], myStack, flag);
+	}
+	myStack.pop();
+	
+}
 
 void SkeletalModel::computeBindWorldToJointTransforms()
 {
@@ -198,6 +219,10 @@ void SkeletalModel::computeBindWorldToJointTransforms()
 	//
 	// This method should update each joint's bindWorldToJointTransform.
 	// You will need to add a recursive helper function to traverse the joint hierarchy.
+
+	m_matrixStack.clear();
+	recurseJointBind(m_rootJoint, m_matrixStack, 0);
+
 }
 
 void SkeletalModel::updateCurrentJointToWorldTransforms()
@@ -210,6 +235,8 @@ void SkeletalModel::updateCurrentJointToWorldTransforms()
 	//
 	// This method should update each joint's bindWorldToJointTransform.
 	// You will need to add a recursive helper function to traverse the joint hierarchy.
+	m_matrixStack.clear();
+	recurseJointBind(m_rootJoint, m_matrixStack, 1);
 }
 
 void SkeletalModel::updateMesh()
@@ -219,5 +246,24 @@ void SkeletalModel::updateMesh()
 	// given the current state of the skeleton.
 	// You will need both the bind pose world --> joint transforms.
 	// and the current joint --> world transforms.
+
+	vector <Vector3f> newVertices;
+
+	for (int v = 0; v < m_mesh.currentVertices.size(); v++) {
+		Vector4f sumPoints = Vector4f();
+
+		for (int a = 0; a < m_mesh.attachments[v].size(); a++) {
+			sumPoints = sumPoints + m_mesh.attachments[v][a] *
+				(m_joints[a + 1]->currentJointToWorldTransform *
+					m_joints[a + 1]->bindWorldToJointTransform *
+					Vector4f(m_mesh.bindVertices[v][0], m_mesh.bindVertices[v][1],
+						m_mesh.bindVertices[v][2], 1.0f));
+
+		}
+		newVertices.push_back(Vector3f(sumPoints[0], sumPoints[1], sumPoints[2]));
+
+	}
+
+	m_mesh.currentVertices = newVertices;
 }
 

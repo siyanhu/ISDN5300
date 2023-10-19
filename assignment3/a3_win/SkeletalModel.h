@@ -43,6 +43,7 @@ public:
 	void loadSkeleton( const char* filename );
 	void SkeletalModel::getChildren(Joint* joint, MatrixStack myMatrixS);
 	void SkeletalModel::getComponents(Joint* joint, MatrixStack myMatrixS, Joint* topNode);
+	void SkeletalModel::recurseJointBind(Joint* joint, MatrixStack myStack, int flag);
 
 	// 1.1. Implement this method with a recursive helper to draw a sphere at each joint.
 	void drawJoints( );
