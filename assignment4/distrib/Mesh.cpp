@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <utility>
 #include <sstream>
+
 bool Mesh ::intersect( const Ray& r , Hit& h , float tmin ) {
 	bool result = false;
 	for( unsigned int i = 0 ; i < t.size() ; i++){

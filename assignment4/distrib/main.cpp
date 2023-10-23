@@ -132,8 +132,10 @@ int main( int argc, char* argv[] )
                 pixel_colol += hit.getMaterial()->getDiffuseColor() * scene.getAmbientLight();
                 image.SetPixel(j, i, pixel_colol);
             }
+
             j += 1;
         }
+
         i += 1;
     }
 
