@@ -30,12 +30,8 @@ public:
   }
     
 
-  Vector3f Shade( const Ray& ray, const Hit& hit,
-                  const Vector3f& dirToLight, const Vector3f& lightColor ) {
-
-    return Vector3f(1,1,1) ; 
-		
-  }
+  Vector3f Shade(const Ray& ray, const Hit& hit,
+      const Vector3f& dirToLight, const Vector3f& lightColor);
 
   void loadTexture(const char * filename){
     t.load(filename);
