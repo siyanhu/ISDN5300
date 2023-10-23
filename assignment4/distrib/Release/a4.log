@@ -1,0 +1,5 @@
+﻿  main.cpp
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(81,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(82,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+  a4.vcxproj -> D:\Gits\ISDN5300\assignment4\distrib\Release\a4.exe
