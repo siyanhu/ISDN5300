@@ -17,18 +17,19 @@ public:
 	}
 
 	Sphere( Vector3f center , float radius , Material* material ):Object3D(material){
-
+		this->centre = center;
+		this->radius = radius;
 	}
 	
 
 	~Sphere(){}
 
-	virtual bool intersect( const Ray& r , Hit& h , float tmin){
-		return false;
-	}
+	virtual bool intersect(const Ray& r, Hit& h, float tmin);
+	Vector3f Sphere::calculate_normal(float tmin, float discrim, float a, float b, Hit& h, const Ray& r, bool flag);
 
 protected:
-	
+	Vector3f centre;
+	float radius;
 
 };
 

@@ -6,6 +6,7 @@
 #include "Ray.h"
 #include "Hit.h"
 #include <iostream>
+#include <vector>
 
 using  namespace std;
 
@@ -20,28 +21,18 @@ public:
 
   }
 	
-  Group( int num_objects ){
-
-  }
+  Group(int num_objects);
 
   ~Group(){
    
   }
 
-  virtual bool intersect( const Ray& r , Hit& h , float tmin ) {
-		return false;
-   }
-	
-  void addObject( int index , Object3D* obj ){
-
-  }
-
-  int getGroupSize(){ 
-  
-  }
+  virtual bool intersect(const Ray& r, Hit& h, float tmin);
+  void addObject(int index, Object3D* obj);
+  int getGroupSize();
 
  private:
-
+	 vector<Object3D *>object_list;
 };
 
 #endif
