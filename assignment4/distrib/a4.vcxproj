@@ -79,9 +79,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="SceneParser.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="vecmath\src\Matrix2f.cpp" />
     <ClCompile Include="vecmath\src\Matrix3f.cpp" />
     <ClCompile Include="vecmath\src\Matrix4f.cpp" />

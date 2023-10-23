@@ -15,7 +15,7 @@ Vector3f Material::Shade(const Ray& ray, const Hit& hit, const Vector3f& dirToLi
 	if (t.valid()) {
 		Vector3f tex_color = t(hit.texCoord[0], hit.texCoord[1]);
 		diffuse_color_temp = normal_dot_light * tex_color * lightColor;
-		this->diffuseColor = diffuse_color_temp;
+		this->diffuseColor = tex_color;
 	}
 	else {
 		diffuse_color_temp = normal_dot_light * this->diffuseColor * lightColor;
