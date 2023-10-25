@@ -109,16 +109,15 @@ int main( int argc, char* argv[] )
     Image image(w, h);
     image.SetAllPixels(scene.getBackgroundColor());
 
-    int i = 0, j = 0;
-    while (i < w) {
-        while (j < h) {
-            Vector2f pos = Vector2f((2.0 * float(i) / (w - 1)) - 1, (2.0 * float(j) / (h - 1)) - 1);
+    for (int ii = 0; ii < w; ii++) {
+        for (int jj = 0; jj < h; jj++) {
+            Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
             Ray ray = scene.getCamera()->generateRay(pos);
             Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
             bool goint_to_intersect = false;
             goint_to_intersect = scene.getGroup()->intersect(ray, hit, scene.getCamera()->getTMin());
-            if (goint_to_intersect) {
+            if (goint_to_intersect == 1) {
                 Vector3f pixel_colol = Vector3f(0.0, 0.0, 0.0);
 
                 for (int l_num = 0; l_num < scene.getNumLights(); l_num++) {
@@ -136,15 +135,10 @@ int main( int argc, char* argv[] )
                 }
 
                 pixel_colol += hit.getMaterial()->getDiffuseColor() * scene.getAmbientLight();
-                image.SetPixel(i, j, pixel_colol);
-                //cout << i << "," << j << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
+                image.SetPixel(ii, jj, pixel_colol);
+                //cout << ii << "," << jj << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
             }
-            else {
-                cout << "NOT intersect" << endl;
-            }
-            j += 1;
         }
-        i += 1;
     }
 
     image.SaveBMP(out_path);

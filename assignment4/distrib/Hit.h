@@ -58,9 +58,13 @@ public:
 
     void set( float _t, Material* m, const Vector3f& n )
     {
+
         t = _t;
         material = m;
         normal = n;
+
+        //cout << "t: " << t << endl;
+        //cout << "normal: " << normal[0] << ", " << normal[1] << ", " << normal[2] << endl;
     }
 	void setTexCoord(const Vector2f & coord){
 		texCoord = coord;

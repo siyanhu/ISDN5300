@@ -12,15 +12,16 @@ class Plane: public Object3D
 public:
 	Plane(){}
 	Plane( const Vector3f& normal , float d , Material* m):Object3D(m){
-		this->normal = normal;
-		this->d = d;
+		normall = normal;
+		dd = d;
+		//cout << "Plane para: " << dd << "," << normall[0] << "," << normall[1] << "," << normall[2] << endl;
 	}
 	~Plane(){}
 	virtual bool intersect(const Ray& r, Hit& h, float tmin);
 
 protected:
-	Vector3f normal;
-	float d;
+	Vector3f normall;
+	float dd;
 };
 #endif //PLANE_H
 		
