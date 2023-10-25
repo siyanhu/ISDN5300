@@ -22,6 +22,7 @@ public:
         delete[] data;
     }
 
+
     int Width() const
     {
         return width;

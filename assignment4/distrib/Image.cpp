@@ -2,9 +2,11 @@
 #include <cstdio>
 #include <cstring>
 
+#include <iostream>
 #include "Image.h"
 
 // some helper functions for save & load
+using namespace std;
 
 unsigned char ReadByte( FILE* file)
 {

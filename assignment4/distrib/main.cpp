@@ -12,7 +12,7 @@
 
 using namespace std;
 
-float clampedDepth ( float depthInput, float depthMin , float depthMax);
+float clampedDepth(float depthInput, float depthMin, float depthMax);
 
 #include "bitmap_image.hpp"
 int main( int argc, char* argv[] )
@@ -130,7 +130,7 @@ int main( int argc, char* argv[] )
                 }
 
                 pixel_colol += hit.getMaterial()->getDiffuseColor() * scene.getAmbientLight();
-                image.SetPixel(j, i, pixel_colol);
+                image.SetPixel(i, j, pixel_colol);
             }
 
             j += 1;
