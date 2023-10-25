@@ -8,7 +8,7 @@ Group::Group(int num_objects) :Object3D(NULL) {
 
 bool Group::intersect(const Ray& r, Hit& h, float tmin) {
 	bool is_intersected = false;
-	for (int i = 0; i < this->object_list.size(); i++) {
+	for (unsigned int i = 0; i < this->object_list.size(); i++) {
 		if (!this->object_list[i]) {
 			continue;
 		}
@@ -16,7 +16,6 @@ bool Group::intersect(const Ray& r, Hit& h, float tmin) {
 			is_intersected = true;
 		}
 	}
-	cout << is_intersected;
 	return is_intersected;
 }
 

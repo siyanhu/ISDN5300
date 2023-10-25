@@ -4,7 +4,7 @@ using namespace std;
 
 bool Plane::intersect(const Ray& r, Hit& h, float tmin) {
 	Vector3f ray_origin = r.getOrigin();
-	Vector3f ray_direction = r.getDirection();
+	Vector3f ray_direction = r.getDirection().normalized();
 	float normal_dot_direction = Vector3f::dot(this->normal, ray_direction);
 
 	if (normal_dot_direction == 0) {

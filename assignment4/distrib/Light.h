@@ -43,8 +43,13 @@ public:
     {
         // the direction to the light is the opposite of the
         // direction of the directional light source
-        dir = -direction;
+
+        //cout << "dir0 " << dir[0] << "," << dir[1] << ", " << dir[2] << endl;
+        dir = -1.0 * direction;
+        //cout << "dir=-position " << dir[0] << "," << dir[1] << ", " << dir[2] << endl;
         col = color;
+        //cout << "col " << col[0] << ", " << col[1] << ", " << col[2] << endl;
+        distanceToLight = FLT_MAX;
     }
 
 private:
@@ -75,15 +80,18 @@ public:
     {
         // the direction to the light is the opposite of the
         // direction of the directional light source
+        //cout << "dir0 " << dir[0] << "," << dir[1] << ", " << dir[2] << endl;
 		dir = (position-p);
+        //cout << "dir=position-p " << dir[0] << "," << dir[1] << ", " << dir[2] << endl;
 		dir = dir/dir.abs();
+        //cout << "dir = dir/dir.abs() " << dir[0] << "," << dir[1] << ", " << dir[2] << endl;
         col = color;
+        //cout << "col " << col[0] << ", " << col[1] << ", " << col[2] << endl;
     }
 
 private:
 
     PointLight(); // don't use
-
     Vector3f position;
     Vector3f color;
 

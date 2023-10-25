@@ -21,10 +21,12 @@ bool Mesh ::intersect( const Ray& r , Hit& h , float tmin ) {
 			}
 			triangle.hasTex=true;
 		}
-		result |= triangle.intersect( r , h , tmin);
+		result = triangle.intersect( r , h , tmin);
 	}
 	return result;
 }
+
+
 Mesh::Mesh(const char * filename,Material * material):Object3D(material)
 {
 	std::ifstream f ;

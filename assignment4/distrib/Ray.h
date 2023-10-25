@@ -36,6 +36,9 @@ public:
     
     Vector3f pointAtParameter( float t ) const
     {
+        //cout << origin[0] << "," << origin[1] << ", " << origin[2] << endl;
+        //cout << direction[0] << "," << direction[1] << ", " << direction[2] << endl;
+        //cout << t << endl;
         return origin + direction * t;
     }
 

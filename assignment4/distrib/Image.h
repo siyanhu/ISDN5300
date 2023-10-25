@@ -65,6 +65,8 @@ public:
     // extension for image comparison
     static Image* compare( Image* img1, Image* img2 );
 
+    static Image* ReadBmp(const char* filename);
+
 private:
 
     int width;

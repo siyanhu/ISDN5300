@@ -19,7 +19,7 @@ public:
   virtual bool intersect(const Ray& r, Hit& h, float tmin);
 
  protected:
-  Object3D* o; //un-transformed object	
+  Object3D* o;
   Matrix4f matrix;
 };
 

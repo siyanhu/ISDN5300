@@ -17,9 +17,9 @@ public:
 	Triangle();
         ///@param a b c are three vertex positions of the triangle
 	Triangle( const Vector3f& a, const Vector3f& b, const Vector3f& c, Material* m):Object3D(m){
-		this->a = a;
-		this->b = b;
-		this->c = c;
+		aa = a;
+		bb = b;
+		cc = c;
 
 		hasTex = false;
 	}
@@ -30,7 +30,7 @@ public:
 	Vector3f normals[3];
 	Vector2f texCoords[3];
 protected:
-	Vector3f a, b, c;
+	Vector3f aa, bb, cc;
 };
 
 #endif //TRIANGLE_H

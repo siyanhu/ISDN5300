@@ -112,34 +112,42 @@ int main( int argc, char* argv[] )
     int i = 0, j = 0;
     while (i < w) {
         while (j < h) {
-            Vector2f pos = Vector2f(float(2 * i / (w - 1)), float(2 * j / (h - 1)));
+            Vector2f pos = Vector2f((2.0 * float(i) / (w - 1)) - 1, (2.0 * float(j) / (h - 1)) - 1);
             Ray ray = scene.getCamera()->generateRay(pos);
             Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
-            if (scene.getGroup()->intersect(ray, hit, scene.getCamera()->getTMin())) {
+            bool goint_to_intersect = false;
+            goint_to_intersect = scene.getGroup()->intersect(ray, hit, scene.getCamera()->getTMin());
+            if (goint_to_intersect) {
                 Vector3f pixel_colol = Vector3f(0.0, 0.0, 0.0);
 
                 for (int l_num = 0; l_num < scene.getNumLights(); l_num++) {
                     Light* light = scene.getLight(l_num);
+
                     Vector3f light_dir, light_col;
                     float dist_2_light;
 
                     light->getIllumination(ray.pointAtParameter(hit.getT()), light_dir, light_col, dist_2_light);
+                    //cout << "col " << light_dir[0] << ", " << light_dir[1] << ", " << light_dir[2] << endl;
+
                     Vector3f shading_col = hit.getMaterial()->Shade(ray, hit, light_dir, light_col);
                     pixel_colol += shading_col;
+                    //cout << shading_col[0] << "," << shading_col[1] << ", " << shading_col[2] << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
                 }
 
                 pixel_colol += hit.getMaterial()->getDiffuseColor() * scene.getAmbientLight();
                 image.SetPixel(i, j, pixel_colol);
+                //cout << i << "," << j << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
             }
-
+            else {
+                cout << "NOT intersect" << endl;
+            }
             j += 1;
         }
-
         i += 1;
     }
 
-    image.SaveImage(out_path);
+    image.SaveBMP(out_path);
 
     ///Should be removed when you start
     // Vector3f pixelColor (1.0f,0,0);
@@ -147,6 +155,13 @@ int main( int argc, char* argv[] )
     // Image image( 10 , 15 );
     // image.SetPixel( 5,5, pixelColor );
     // image.SaveImage("demo.bmp");
+
+    char* test_path = "feet.bmp";
+    Image imagee(w, h);
+    imagee.ReadBmp(test_path);
+    imagee.SaveBMP("output33.bmp");
+
+
     return 0;
 }
 

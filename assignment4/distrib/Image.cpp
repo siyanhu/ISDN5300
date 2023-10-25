@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
-
+#include <fstream>
 #include <iostream>
 #include "Image.h"
 
@@ -241,8 +241,9 @@ struct BMPHeader
     int biClrImportant;   /* Number of important colors.  If 0, all colors 
                              are important */
 };
-int 
-Image::SaveBMP(const char *filename)
+
+
+int Image::SaveBMP(const char *filename)
 {
     int i, j, ipos;
     int bytesPerLine;
@@ -305,6 +306,8 @@ Image::SaveBMP(const char *filename)
             line[3*j] = ClampColorComponent(rgb[ipos][2]);
             line[3*j+1] =ClampColorComponent( rgb[ipos][1]);
             line[3*j+2] = ClampColorComponent( rgb[ipos][0]);
+            //cout << i << "," << j << "," << 3 + j << endl;
+
         }
         fwrite(line, bytesPerLine, 1, file);
     }
@@ -324,3 +327,45 @@ void Image::SaveImage(const char * filename)
 		SaveTGA(filename);
 	}
 }
+
+Image* Image::ReadBmp(const char* filename) {
+
+    const char* ext = &filename[strlen(filename) - 4];
+    assert(!strcmp(ext, ".bmp"));
+
+    FILE* file = fopen(filename, "rb");
+    struct BMPHeader header;
+    fread(&header.bfType, 2, 1, file);
+    fread(&header.bfSize, 4, 1, file);
+    fread(&header.bfReserved, 4, 1, file);
+    fread(&header.bfOffBits, 4, 1, file);
+    fread(&header.biSize, 4, 1, file);
+    fread(&header.biWidth, 4, 1, file);
+    fread(&header.biHeight, 4, 1, file);
+    fread(&header.biPlanes, 2, 1, file);
+    fread(&header.biBitCount, 2, 1, file);
+    fread(&header.biCompression, 4, 1, file);
+    fread(&header.biSizeImage, 4, 1, file);
+    fread(&header.biXPelsPerMeter, 4, 1, file);
+    fread(&header.biYPelsPerMeter, 4, 1, file);
+    fread(&header.biClrUsed, 4, 1, file);
+    fread(&header.biClrImportant, 4, 1, file);
+
+    int padding = header.biWidth % 4;
+    Image* answer = new Image(header.biWidth, header.biHeight);
+    for (int i = 0; i < header.biHeight; i++) {
+        for (int j = 0; j < header.biWidth; j++) {
+
+            unsigned char r, g, b;
+            fread(&b, 1, 1, file);
+            fread(&g, 1, 1, file);
+            fread(&r, 1, 1, file);
+            Vector3f color(r / 255.0, g / 255.0, b / 255.0);
+            answer->SetPixel(j, i, color);
+        }
+        fseek(file, padding, SEEK_CUR);  //padding at the end of row
+    }
+    return answer;
+}
+
+

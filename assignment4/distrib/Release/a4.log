@@ -1,4 +1,3 @@
-﻿  Group.cpp
-D:\Gits\ISDN5300\assignment4\distrib\Group.cpp(11,20): warning C4018: '<': signed/unsigned mismatch
+﻿  Triangle.cpp
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
   a4.vcxproj -> D:\Gits\ISDN5300\assignment4\distrib\Release\a4.exe
