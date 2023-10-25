@@ -31,7 +31,7 @@ bool Triangle::intersect(const Ray& r, Hit& h, float tmin) {
 		this->aa.z() - this->bb.z(), this->aa.z() - this->cc.z(), this->aa.z() - R_o.z());
 	float t = tM.determinant() / A.determinant();
 
-	cout << "Barycentric: " << A.determinant() << ", " << beta << ", " << gamma << ", " << t << endl;
+	//cout << "Barycentric: " << A.determinant() << ", " << beta << ", " << gamma << ", " << t << endl;
 
 	if (beta + gamma > 1) {
 		return false;

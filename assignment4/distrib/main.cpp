@@ -150,10 +150,10 @@ int main( int argc, char* argv[] )
     // image.SetPixel( 5,5, pixelColor );
     // image.SaveImage("demo.bmp");
 
-    char* test_path = "feet.bmp";
-    Image imagee(w, h);
-    imagee.ReadBmp(test_path);
-    imagee.SaveBMP("output33.bmp");
+    //char* test_path = "feet.bmp";
+    //Image imagee(w, h);
+    //imagee.ReadBmp(test_path);
+    //imagee.SaveBMP("output33.bmp");
 
 
     return 0;
