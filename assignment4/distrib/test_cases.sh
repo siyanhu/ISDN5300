@@ -12,4 +12,5 @@ rm *.bmp
 ./a4 -input scene08_c.txt -size 200 200 -output 8.bmp
 ./a4 -input scene09_s.txt -size 200 200 -output 9.bmp
 ./a4 -input scene10_s.txt -size 200 200 -output 10.bmp
+./a4 -input scene11_fisheye.txt -size 200 200 -output 11.bmp
 
