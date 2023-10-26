@@ -13,6 +13,6 @@
 
 3. Are there any known problems with your code? No.
 
-4. Did you do any extra credit? Not yet.
+4. Did you do any extra credit? Yes. Add orthogonal camera and fish eye camera at camera.h. testing cases include 10.bmp and 11.bmp.
 
-5. Got any comments about this assignment that you'd like to share? A4soln.exe cannot run on the PC that I'm using (windows 11 pro with intel cpu). I work based on the pdf manual all along the way...
+5. Got any comments about this assignment that you'd like to share? A4soln.exe cannot run on the PC that I'm using (windows 11 pro with intel cpu). I work based on the pdf manual all along the way. And I found the problem might be at the mesh.cpp. I've re-write some parts and it works now.
