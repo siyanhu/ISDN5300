@@ -10,9 +10,9 @@ class Transform: public Object3D
 {
 public: 
   Transform(){}
- Transform( const Matrix4f& m, Object3D* obj ):o(obj){
-     this->matrix = m;
-     this->o = obj;
+ Transform( const Matrix4f& mm, Object3D* objj ):o(objj){
+     matrix = mm;
+     o = objj;
   }
   ~Transform(){
   }
