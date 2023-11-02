@@ -1,0 +1,22 @@
+﻿  SceneParser.cpp
+D:\Gits\ISDN5300\assignment4\distrib\Camera.h(115,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(42,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(121,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(435,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(437,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(439,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(444,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(478,19): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(489,17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(500,17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(511,17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\Gits\ISDN5300\assignment4\distrib\SceneParser.cpp(522,17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+D:\Gits\ISDN5300\assignment4\distrib\Camera.h(115,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(81,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(82,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(114,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment4\distrib\main.cpp(114,65): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+  a4.vcxproj -> D:\Gits\ISDN5300\assignment4\distrib\Release\a4.exe
