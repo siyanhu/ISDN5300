@@ -13,9 +13,57 @@
 
 using namespace std;
 
+#include "bitmap_image.hpp"
 float clampedDepth(float depthInput, float depthMin, float depthMax);
 
-#include "bitmap_image.hpp"
+void depth_saver(const char* depth_out_path, int w, int h, float depth_min, float depth_max, SceneParser& scene) {
+    Image image_depth = Image(w, h);
+    image_depth.SetAllPixels(Vector3f(0.0f, 0.0f, 0.0f));
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            Vector2f coord = Vector2f((2 * float(i) / (w - 1)) - 1, (2 * float(j) / (h - 1)) - 1);
+            Ray r = scene.getCamera()->generateRay(coord);
+            Hit h = Hit(FLT_MAX, NULL, Vector3f(0.0f, 0.0f, 0.0f));
+
+            if (scene.getGroup()->intersect(r, h, scene.getCamera()->getTMin())) {
+                if (h.getT() < depth_min) {
+                    image_depth.SetPixel(j, i, Vector3f(1.0f, 1.0f, 1.0f));
+                }
+                else if (h.getT() > depth_max) {
+                    image_depth.SetPixel(j, i, Vector3f(0.0f, 0.0f, 0.0f));
+                }
+                else {
+                    float grayScale = (depth_min - h.getT()) / (depth_max - depth_min);
+                    image_depth.SetPixel(i, j, Vector3f(grayScale, grayScale, grayScale));
+                }
+            }
+        }
+    }
+    image_depth.SaveBMP(depth_out_path);
+}
+
+void normal_saver(const char* normal_out_path, int w, int h, SceneParser& scene) {
+    Image image_normal = Image(w, h);
+    image_normal.SetAllPixels(Vector3f(0.0f, 0.0f, 0.0f));
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            Vector2f coord = Vector2f((2 * float(i) / (w - 1)) - 1, (2 * float(j) / (h - 1)) - 1);
+            Ray r = scene.getCamera()->generateRay(coord);
+            Hit h = Hit(FLT_MAX, NULL, Vector3f(0.0f, 0.0f, 0.0f));
+            if (scene.getGroup()->intersect(r, h, 0.0f)) {
+                Vector3f pixColNorm = h.getNormal().normalized();
+                for (int x = 0; x < 3; x++) {
+                    if (pixColNorm[x] < 0) {
+                        pixColNorm[x] = pixColNorm[x] * -1.0f;
+                    }
+                }
+                image_normal.SetPixel(i, j, pixColNorm);
+            }
+        }
+    }
+    image_normal.SaveBMP(normal_out_path);
+}
+
 int main( int argc, char* argv[] )
 {
     // Fill in your implementation here.
@@ -152,6 +200,12 @@ int main( int argc, char* argv[] )
         }
 
         image.SaveBMP(out_path);
+        if (depth_on) {
+            depth_saver(depth_out_path, w, h, depth_min, depth_max, scene);
+        }
+        if (normal_on) {
+            normal_saver(normal_out_path, w, h, scene);
+        }
         exit(0);
     }
     else {
@@ -292,14 +346,24 @@ int main( int argc, char* argv[] )
             }
 
             compressed_image.SaveBMP(out_path);
+            if (depth_on) {
+                depth_saver(depth_out_path, w, h, depth_min, depth_max, scene);
+            }
+            if (normal_on) {
+                normal_saver(normal_out_path, w, h, scene);
+            }
             exit(0);
         }
 
         image.SaveBMP(out_path);
+        if (depth_on) {
+            depth_saver(depth_out_path, width_hres, height_hres, depth_min, depth_max, scene);
+        }
+        if (normal_on) {
+            normal_saver(normal_out_path, width_hres, height_hres, scene);
+        }
         exit(0);
     }
-
-
 
 
     ///Should be removed when you start

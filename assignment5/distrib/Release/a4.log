@@ -1,2 +1,17 @@
-﻿LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+﻿  main.cpp
+D:\Gits\ISDN5300\assignment5\distrib\Camera.h(115,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(139,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(140,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(193,102): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(193,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(219,121): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(219,78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(220,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(221,27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(240,33): warning C4305: 'initializing': truncation from 'double' to 'const float'
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(240,41): warning C4305: 'initializing': truncation from 'double' to 'const float'
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(240,49): warning C4305: 'initializing': truncation from 'double' to 'const float'
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(240,57): warning C4305: 'initializing': truncation from 'double' to 'const float'
+D:\Gits\ISDN5300\assignment5\distrib\main.cpp(240,65): warning C4305: 'initializing': truncation from 'double' to 'const float'
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
   a4.vcxproj -> D:\Gits\ISDN5300\assignment5\distrib\Release\a5.exe
