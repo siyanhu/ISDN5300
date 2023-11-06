@@ -33,7 +33,7 @@ void depth_saver(const char* depth_out_path, int w, int h, float depth_min, floa
                     image_depth.SetPixel(j, i, Vector3f(0.0f, 0.0f, 0.0f));
                 }
                 else {
-                    float grayScale = (depth_min - h.getT()) / (depth_max - depth_min);
+                    float grayScale = fabs((depth_min - h.getT())) / (depth_max - depth_min);
                     image_depth.SetPixel(i, j, Vector3f(grayScale, grayScale, grayScale));
                 }
             }
