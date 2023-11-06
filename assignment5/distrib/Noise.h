@@ -9,6 +9,7 @@ public:
 		const Vector3f & color1 = Vector3f::ZERO,
 		const Vector3f & color2=Vector3f(1,1,1),
 		float freq=1, float amp=1);
+	Vector3f Noise::getPointColor(const Vector3f& pos);
 	Vector3f Noise::getWoodColor(const Vector3f& pos);
 	Vector3f getColor(const Vector3f & pos);
 	bool valid();

@@ -69,6 +69,7 @@ int main( int argc, char* argv[] )
     // Fill in your implementation here.
     char* in_path, * out_path;
     int w, h;
+    int noise_texture = 0;
 
     float depth_min, depth_max;
     char* depth_out_path, * normal_out_path;
@@ -168,6 +169,14 @@ int main( int argc, char* argv[] )
         else if (strcmp(p, "-filter") == 0) {
             filter = true;
         }
+        else if (strcmp(p, "-noise_texture") == 0) {
+            if (argc <= i + 1) {
+                cout << "ERROR! Not enough parameters -bounces. Try again..." << endl;
+                exit(0);
+            }
+            noise_texture = atoi(argv[i + 1]);
+            i += 1;
+        }
     }
 
     cout << "The program is going to input file from " << in_path << ", and generate output image at " << out_path
@@ -179,6 +188,7 @@ int main( int argc, char* argv[] )
         cout<< "With normal's file output at " << normal_out_path << "." << endl;
     }
     cout << "show shadows? " << shadows << endl << "with jitter? " << jitter << endl << "with filter? " << filter << endl;
+    cout << "Noise Texture Index: " << noise_texture << " (0/default-marble;1-wood;2-point)" << endl;
     
     ///TODO: below demonstrates how to use the provided Image class
     SceneParser scene = SceneParser(in_path);
@@ -194,7 +204,7 @@ int main( int argc, char* argv[] )
                 Ray ray = scene.getCamera()->generateRay(pos);
                 Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
-                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
+                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit, noise_texture);
                 image.SetPixel(ii, jj, pixel_color);
             }
         }
@@ -223,7 +233,7 @@ int main( int argc, char* argv[] )
                 Ray ray = scene.getCamera()->generateRay(pos);
                 Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
-                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
+                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit, noise_texture);
                 pixel_colors_all.push_back(pixel_color);
 
                 if (filter == false) {

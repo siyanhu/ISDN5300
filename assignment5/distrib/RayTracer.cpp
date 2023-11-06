@@ -45,7 +45,7 @@ RayTracer::~RayTracer()
 {
 }
 
-Vector3f RayTracer::traceRay(Ray& ray, float tmin, int bounces, float refr_index, Hit& hit) const
+Vector3f RayTracer::traceRay(Ray& ray, float tmin, int bounces, float refr_index, Hit& hit, int noise_texture) const
 {
     if (group->intersect(ray, hit, tmin)) {
         Vector3f pixel_color = Vector3f(0.0f, 0.0f, 0.0f);
@@ -66,11 +66,11 @@ Vector3f RayTracer::traceRay(Ray& ray, float tmin, int bounces, float refr_index
                 Hit shadow_hit = Hit(dist_to_light, NULL, NULL);
 
                 if (group->intersect(shadow_ray, shadow_hit, EPSILON) == false) {
-                    Vector3f shading_color = hit.getMaterial()->Shade(ray, hit, light_direction, light_color);
+                    Vector3f shading_color = hit.getMaterial()->Shade(ray, hit, light_direction, light_color, noise_texture);
                     pixel_color = pixel_color + shading_color;
                 }
             } else {
-                Vector3f shading_color = hit.getMaterial()->Shade(ray, hit, light_direction, light_color);
+                Vector3f shading_color = hit.getMaterial()->Shade(ray, hit, light_direction, light_color, noise_texture);
                 pixel_color = pixel_color + shading_color;
             }
         }
@@ -95,14 +95,14 @@ Vector3f RayTracer::traceRay(Ray& ray, float tmin, int bounces, float refr_index
         Vector3f rf_direct = mirrorDirection(hit.getNormal().normalized(), -1.0f * ray.getDirection());
         Ray rf_ray = Ray(ray.pointAtParameter(hit.getT()), rf_direct);
         Hit rf_hit = Hit(FLT_MAX, NULL, Vector3f(0.0f, 0.0f, 0.0f));
-        Vector3f rf_color = hit.getMaterial()->getSpecularColor() * traceRay(rf_ray, EPSILON, bounces + 1, refr_index, rf_hit);
+        Vector3f rf_color = hit.getMaterial()->getSpecularColor() * traceRay(rf_ray, EPSILON, bounces + 1, refr_index, rf_hit, noise_texture);
 
         Vector3f transmitted;
         if (transmittedDirection(normal, -1.0f * ray.getDirection(), refr_index, new_refr_index, transmitted)) {
             Ray transmit_ray = Ray(ray.pointAtParameter(hit.getT()), transmitted);
             Hit transmit_hit = Hit();
 
-            Vector3f transColor = hit.getMaterial()->getSpecularColor() * traceRay(transmit_ray, EPSILON, bounces + 1, new_refr_index, transmit_hit);
+            Vector3f transColor = hit.getMaterial()->getSpecularColor() * traceRay(transmit_ray, EPSILON, bounces + 1, new_refr_index, transmit_hit, noise_texture);
             float r0 = powf((new_refr_index - refr_index) / (new_refr_index + refr_index), 2);
             float c;
             if (refr_index > new_refr_index) {

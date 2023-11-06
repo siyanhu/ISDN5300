@@ -13,7 +13,7 @@ Vector3f Material::getDiffuseColor() const
 { return  diffuseColor;}
 
 Vector3f Material::Shade( const Ray& ray, const Hit& hit,
-	const Vector3f& dirToLight, const Vector3f& lightColor ) {
+	const Vector3f& dirToLight, const Vector3f& lightColor, int noise_texture) {
     Vector3f kd;
 		if(t.valid() && hit.hasTex){
 			Vector2f texCoord = hit.texCoord;
@@ -25,7 +25,16 @@ Vector3f Material::Shade( const Ray& ray, const Hit& hit,
 		Vector3f n = hit.getNormal().normalized();
 		//Diffuse Shading
 		if(noise.valid()){
-			kd = noise.getColor(ray.getOrigin()+ray.getDirection()*hit.getT());
+			if (noise_texture == 1) {
+				// wood_color
+				kd = noise.getWoodColor(ray.getOrigin() + ray.getDirection() * hit.getT());
+			}
+			else if (noise_texture == 2) {
+				kd = noise.getPointColor(ray.getOrigin() + ray.getDirection() * hit.getT());
+			}
+			else {
+				kd = noise.getColor(ray.getOrigin() + ray.getDirection() * hit.getT());
+			}
 		}
 		Vector3f color = clampedDot( dirToLight ,n )*pointwiseDot( lightColor , kd);
 		return color;

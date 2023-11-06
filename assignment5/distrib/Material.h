@@ -19,8 +19,11 @@ public:
 
     virtual Vector3f getDiffuseColor() const ;
 
-    Vector3f Shade( const Ray& ray, const Hit& hit,
-            const Vector3f& dirToLight, const Vector3f& lightColor ) ;
+    //Vector3f Shade( const Ray& ray, const Hit& hit,
+            //const Vector3f& dirToLight, const Vector3f& lightColor ) ;
+
+	Vector3f Material::Shade(const Ray& ray, const Hit& hit,
+		const Vector3f& dirToLight, const Vector3f& lightColor, int noise_texture);
 
 	static  Vector3f pointwiseDot( const Vector3f& v1 , const Vector3f& v2 );
 
