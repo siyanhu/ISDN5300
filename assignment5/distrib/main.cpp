@@ -135,11 +135,11 @@ int main( int argc, char* argv[] )
     ///TODO: below demonstrates how to use the provided Image class
     SceneParser scene = SceneParser(in_path);
     RayTracer tracer = RayTracer(&scene, bounces, shadows);
-
-    Image image(w, h);
     //image.SetAllPixels(scene.getBackgroundColor());
 
     if ((jitter == false) && (filter == false)) {
+        Image image(w, h);
+
         for (int ii = 0; ii < w; ii++) {
             for (int jj = 0; jj < h; jj++) {
                 Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
@@ -147,37 +147,160 @@ int main( int argc, char* argv[] )
                 Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
                 Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
-                image.SetPixel(jj, ii, pixel_color);
+                image.SetPixel(ii, jj, pixel_color);
             }
         }
+
+        image.SaveBMP(out_path);
+        exit(0);
     }
     else {
         int width_hres = w * 3;
         int height_hres = h * 3;
-
+        Image image(width_hres, height_hres);
         vector<Vector3f> pixel_colors_all;
-        vector<Vector3f> pixel_colors_blur_w;
-        vector<Vector3f> pixel_colors_blur_h;
-        const float K[] = { 0.1201, 0.2339, 0.2931, 0.2339, 0.1201 };
 
-        for (int ii = 0; ii < w; ii++) {
-            for (int jj = 0; jj < h; jj++) {
-                Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
-                float r_i = (float)rand() / (float)RAND_MAX - 0.5;
-                float r_j = (float)rand() / (float)RAND_MAX - 0.5;
+        for (int ii = 0; ii < width_hres; ii++) {
+            for (int jj = 0; jj < height_hres; jj++) {
+                Vector2f pos = Vector2f((2.0 * float(ii) / (width_hres - 1)) - 1, (2.0 * float(jj) / (height_hres - 1)) - 1);
+                float r_i = -0.5 + (static_cast <float> (rand())) / (static_cast <float> (RAND_MAX));
+                float r_j = -0.5 + (static_cast <float> (rand())) / (static_cast <float> (RAND_MAX));
                 Vector2f new_pos = Vector2f(pos[0] + r_i, pos[1] + r_j);
                 Ray ray = scene.getCamera()->generateRay(pos);
                 Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
                 Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
                 pixel_colors_all.push_back(pixel_color);
-                image.SetPixel(jj, ii, pixel_color);
+
+                if (filter == false) {
+                    image.SetPixel(ii, jj, pixel_color);
+                }
             }
         }
+
+        if (filter) {
+
+            Image compressed_image(w, h);
+            vector<Vector3f> pixel_colors_blur_w;
+            vector<Vector3f> pixel_colors_blur_h;
+            const float K[] = { 0.1201, 0.2339, 0.2931, 0.2339, 0.1201 };
+
+            for (int ii = 0; ii < width_hres; ii++) {
+                for (int jj = 0; jj < height_hres; jj++) {
+                    if (jj == 0) {
+                        pixel_colors_blur_w.push_back(
+                            pixel_colors_all[ii * height_hres + jj] * K[2]
+                            + pixel_colors_all[ii * height_hres + jj + 1] * K[3]
+                            + pixel_colors_all[ii * height_hres + jj + 2] * K[4]
+                        );
+                    }
+                    else if (jj == 0) {
+                        pixel_colors_blur_w.push_back(
+                            pixel_colors_all[ii * height_hres + jj - 1] * K[1]
+                            + pixel_colors_all[ii * height_hres + jj] * K[2]
+                            + pixel_colors_all[ii * height_hres + jj + 1] * K[3]
+                            + pixel_colors_all[ii * height_hres + jj + 2] * K[4]
+                        );
+                    }
+                    else if (jj == height_hres - 1) {
+                        pixel_colors_blur_w.push_back(
+                            pixel_colors_all[ii * height_hres + jj] * K[2]
+                            + pixel_colors_all[ii * height_hres + jj - 1] * K[1]
+                            + pixel_colors_all[ii * height_hres + jj - 2] * K[0]
+                        );
+                    }
+                    else if (jj == height_hres - 2) {
+                        pixel_colors_blur_w.push_back(
+                            pixel_colors_all[ii * height_hres + jj + 1] * K[3]
+                            + pixel_colors_all[ii * height_hres + jj] * K[2]
+                            + pixel_colors_all[ii * height_hres + jj - 1] * K[1]
+                            + pixel_colors_all[ii * height_hres + jj - 2] * K[0]
+                        );
+                    }
+                    else {
+                        pixel_colors_blur_w.push_back(
+                            pixel_colors_all[ii * height_hres + jj - 2] * K[0]
+                            + pixel_colors_all[ii * height_hres + jj - 1] * K[1]
+                            + pixel_colors_all[ii * height_hres + jj] * K[2]
+                            + pixel_colors_all[ii * height_hres + jj + 1] * K[3]
+                            + pixel_colors_all[ii * height_hres + jj + 2] * K[4]
+                        );
+                    }
+                }
+            }
+
+            for (int jj = 0; jj < height_hres; jj++) {
+                for (int ii = 0; ii < width_hres; ii++) {
+                    if (ii == 0) {
+                        pixel_colors_blur_h.push_back(
+                            pixel_colors_blur_w[jj * width_hres + ii] * K[2]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 1] * K[3]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 2] * K[4]
+                        );
+                    }
+                    else if (ii == 1) {
+                        pixel_colors_blur_h.push_back(
+                            pixel_colors_blur_w[jj * width_hres + ii - 1] * K[1]
+                            + pixel_colors_blur_w[jj * width_hres + ii] * K[2]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 1] * K[3]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 2] * K[4]
+                        );
+                    }
+                    else if (ii == width_hres - 1) {
+                        pixel_colors_blur_h.push_back(
+                            pixel_colors_blur_w[jj * width_hres + ii] * K[2]
+                            + pixel_colors_blur_w[jj * width_hres + ii - 1] * K[1]
+                            + pixel_colors_blur_w[jj * width_hres + ii - 2] * K[0]
+                        );
+                    }
+                    else if (ii == width_hres - 2) {
+                        pixel_colors_blur_h.push_back(
+                            pixel_colors_blur_w[jj * width_hres + ii + 1] * K[3]
+                            + pixel_colors_blur_w[jj * width_hres + ii] * K[2]
+                            + pixel_colors_blur_w[jj * width_hres + ii - 1] * K[1]
+                            + pixel_colors_blur_w[jj * width_hres + ii - 2] * K[0]
+                        );
+                    }
+                    else {
+                        pixel_colors_blur_h.push_back(
+                            pixel_colors_blur_w[jj * width_hres + ii - 2] * K[0]
+                            + pixel_colors_blur_w[jj * width_hres + ii - 1] * K[1]
+                            + pixel_colors_blur_w[jj * width_hres + ii] * K[2]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 1] * K[3]
+                            + pixel_colors_blur_w[jj * width_hres + ii + 2] * K[4]
+                        );
+                    }
+                }
+            }
+
+            //DownSample
+            for (int ii = 0; ii < w; ii++) {
+                for (int jj = 0; jj < h; jj++) {
+                    Vector3f pixel_color_compressed =
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 0] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 1] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 2] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + width_hres + 0] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + width_hres + 1] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + width_hres + 2] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 2 * width_hres + 0] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 2 * width_hres + 1] +
+                        pixel_colors_blur_w[3 * (ii + width_hres * jj) + 2 * width_hres + 2];
+                    pixel_color_compressed = pixel_color_compressed / 9.0f;
+                    compressed_image.SetPixel(jj, ii, pixel_color_compressed);
+                }
+            }
+
+            compressed_image.SaveBMP(out_path);
+            exit(0);
+        }
+
+        image.SaveBMP(out_path);
+        exit(0);
     }
 
 
-    image.SaveBMP(out_path);
+
 
     ///Should be removed when you start
     // Vector3f pixelColor (1.0f,0,0);
