@@ -2,10 +2,8 @@
 #include "PerlinNoise.h"
 
 Vector3f Noise::getWoodColor(const Vector3f& pos) {
-	float M = sin(frequency * pos[0] + amplitude * PerlinNoise::octaveNoise(pos, octaves));
 	float G = 10 * (PerlinNoise::octaveNoise(Vector3f(pos[0], pos[1], pos[2]), octaves));
-	G = G - int(G);
-	float r = 1;
+	G = 1.0f * (G - (int)G);
 	return color[0] + G * color[1];
 }
 
@@ -14,9 +12,8 @@ Vector3f Noise::getColor(const Vector3f & pos)
   //Fill in this function  ONLY.
   //INTERPOLATE BETWEEN TWO COLORS BY WEIGHTED AVERAGE
 
+
 	float M = sin(frequency * pos[0] + amplitude * PerlinNoise::octaveNoise(pos, octaves));
-	float G = 20 * (PerlinNoise::octaveNoise(Vector3f(pos[0], pos[1], pos[2]), octaves));
-	M = 1.0f * (G - (int)G);
 	M = (M + 1.0f) / 2.0f;
 	return M * color[0] + (1 - M) * color[1];
 	//return Vector3f(1,1,1);
@@ -26,8 +23,9 @@ Vector3f Noise::getPointColor(const Vector3f& pos)
 {
 	//Fill in this function  ONLY.
 	//INTERPOLATE BETWEEN TWO COLORS BY WEIGHTED AVERAGE
-
 	float M = sin(frequency * pos[0] + amplitude * PerlinNoise::octaveNoise(pos, octaves));
+	float G = 20 * (PerlinNoise::octaveNoise(Vector3f(pos[0], pos[1], pos[2]), octaves));
+	M = 1.0f * (G - (int)G);
 	M = (M + 1.0f) / 2.0f;
 	return M * color[0] + (1 - M) * color[1];
 	//return Vector3f(1,1,1);
