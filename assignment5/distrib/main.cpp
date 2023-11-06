@@ -8,6 +8,7 @@
 #include "SceneParser.h"
 #include "Image.h"
 #include "Camera.h"
+#include "RayTracer.h"
 #include <string.h>
 
 using namespace std;
@@ -26,6 +27,15 @@ int main( int argc, char* argv[] )
     bool depth_on, normal_on;
     depth_on = false;
     normal_on = false;
+
+    int bounces;
+    bool shadows;
+    bool jitter;
+    bool filter;
+    bounces = 4;
+    shadows = false;
+    jitter = false;
+    filter = false;
     
     // This loop loops over each of the input arguments.
     // argNum is initialized to 1 because the first
@@ -93,9 +103,26 @@ int main( int argc, char* argv[] )
             normal_out_path = argv[i + 1];
             i += 1;
         }
+        else if (strcmp(p, "-bounces") == 0) {
+            if (argc <= i + 1) {
+                cout << "ERROR! Not enough parameters -bounces. Try again..." << endl;
+                exit(0);
+            }
+            bounces = atoi(argv[i + 1]);
+            i += 1;
+        }
+        else if (strcmp(p, "-shadows") == 0) {
+            shadows = true;
+        }
+        else if (strcmp(p, "-jitter") == 0) {
+            jitter = true;
+        }
+        else if (strcmp(p, "-filter") == 0) {
+            filter = true;
+        }
     }
 
-    cout << "The program is going to input file at " << in_path << ", and generate output image at " << out_path
+    cout << "The program is going to input file from " << in_path << ", and generate output image at " << out_path
         << " with size (width, height) = [" << to_string(w) << ", " << to_string(h) << "]." << endl;
     if (depth_on) {
         cout << "With depth's paramters (min, max) [" << to_string(depth_min) << ", " << to_string(depth_max) << "], and output depth file at " << depth_out_path << "." << endl;
@@ -103,43 +130,52 @@ int main( int argc, char* argv[] )
     if (normal_on) {
         cout<< "With normal's file output at " << normal_out_path << "." << endl;
     }
+    cout << "show shadows? " << shadows << endl << "with jitter? " << jitter << endl << "with filter? " << filter << endl;
     
     ///TODO: below demonstrates how to use the provided Image class
     SceneParser scene = SceneParser(in_path);
+    RayTracer tracer = RayTracer(&scene, bounces, shadows);
+
     Image image(w, h);
-    image.SetAllPixels(scene.getBackgroundColor());
+    //image.SetAllPixels(scene.getBackgroundColor());
 
-    for (int ii = 0; ii < w; ii++) {
-        for (int jj = 0; jj < h; jj++) {
-            Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
-            Ray ray = scene.getCamera()->generateRay(pos);
-            Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
+    if ((jitter == false) && (filter == false)) {
+        for (int ii = 0; ii < w; ii++) {
+            for (int jj = 0; jj < h; jj++) {
+                Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
+                Ray ray = scene.getCamera()->generateRay(pos);
+                Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
 
-            bool goint_to_intersect = false;
-            goint_to_intersect = scene.getGroup()->intersect(ray, hit, scene.getCamera()->getTMin());
-            if (goint_to_intersect == 1) {
-                Vector3f pixel_colol = Vector3f(0.0, 0.0, 0.0);
-
-                for (int l_num = 0; l_num < scene.getNumLights(); l_num++) {
-                    Light* light = scene.getLight(l_num);
-
-                    Vector3f light_dir, light_col;
-                    float dist_2_light;
-
-                    light->getIllumination(ray.pointAtParameter(hit.getT()), light_dir, light_col, dist_2_light);
-                    //cout << "col " << light_dir[0] << ", " << light_dir[1] << ", " << light_dir[2] << endl;
-
-                    Vector3f shading_col = hit.getMaterial()->Shade(ray, hit, light_dir, light_col);
-                    pixel_colol += shading_col;
-                    //cout << shading_col[0] << "," << shading_col[1] << ", " << shading_col[2] << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
-                }
-
-                pixel_colol += hit.getMaterial()->getDiffuseColor() * scene.getAmbientLight();
-                image.SetPixel(ii, jj, pixel_colol);
-                //cout << ii << "," << jj << "," << pixel_colol[0] << "," << pixel_colol[1] << "," << pixel_colol[2] << endl;
+                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
+                image.SetPixel(jj, ii, pixel_color);
             }
         }
     }
+    else {
+        int width_hres = w * 3;
+        int height_hres = h * 3;
+
+        vector<Vector3f> pixel_colors_all;
+        vector<Vector3f> pixel_colors_blur_w;
+        vector<Vector3f> pixel_colors_blur_h;
+        const float K[] = { 0.1201, 0.2339, 0.2931, 0.2339, 0.1201 };
+
+        for (int ii = 0; ii < w; ii++) {
+            for (int jj = 0; jj < h; jj++) {
+                Vector2f pos = Vector2f((2.0 * float(ii) / (w - 1)) - 1, (2.0 * float(jj) / (h - 1)) - 1);
+                float r_i = (float)rand() / (float)RAND_MAX - 0.5;
+                float r_j = (float)rand() / (float)RAND_MAX - 0.5;
+                Vector2f new_pos = Vector2f(pos[0] + r_i, pos[1] + r_j);
+                Ray ray = scene.getCamera()->generateRay(pos);
+                Hit hit = Hit(FLT_MAX, NULL, Vector3f(0.0, 0.0, 0.0));
+
+                Vector3f pixel_color = tracer.traceRay(ray, scene.getCamera()->getTMin(), 0, 1.0f, hit);
+                pixel_colors_all.push_back(pixel_color);
+                image.SetPixel(jj, ii, pixel_color);
+            }
+        }
+    }
+
 
     image.SaveBMP(out_path);
 

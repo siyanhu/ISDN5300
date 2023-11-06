@@ -73,12 +73,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Group.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="octree.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="SceneParser.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -95,15 +100,20 @@
   <ItemGroup>
     <ClInclude Include="bitmap_image.hpp" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="Group.h" />
     <ClInclude Include="Hit.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="Noise.h" />
     <ClInclude Include="Object3D.h" />
+    <ClInclude Include="octree.hpp" />
+    <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Ray.h" />
+    <ClInclude Include="RayTracer.h" />
     <ClInclude Include="SceneParser.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="texture.hpp" />
