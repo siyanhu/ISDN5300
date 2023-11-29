@@ -19,4 +19,4 @@ final_project/registration/colmap_imgs
 final_project/registration/imgs
 *.pyc
 */__pycache__
-*.pyc
+/Users/siyanhu/GitHub/ISDN5300/final_project/streamming/__pycache__/create_model.cpython-39.pyc
