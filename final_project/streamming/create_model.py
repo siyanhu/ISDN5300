@@ -98,7 +98,7 @@ class ColmapProject():
     images = []
     depth_images = []
 
-    def __init__(self, camera_id, camera_name, tag, standby_period):
+    def __init__(self, camera_id, camera_name, tag):
         self.camera = CameraObject(camera_id, camera_name)
         __parent_dir = fio.createPath(fio.sep, ["/Users/siyanhu/GitHub/ISDN5300/final_project/data", tag])
         if fio.file_exist(__parent_dir):
@@ -113,7 +113,6 @@ class ColmapProject():
         fio.ensure_dir(self.image_dir_depth)
         fio.ensure_dir(self.sparse_dir)
         self.init_ts = tio.current_timestamp()
-        self.standby_interval = standby_period
 
     def feed_image_rgb(self, image_array, image_pose, timestamp):
         image_name = str(len(self.images)) + '_' + 'rgb' + '.png'
@@ -125,13 +124,6 @@ class ColmapProject():
         img.set_extrinsics(image_pose)
         img.timestamp = timestamp
         self.images.append(img)
-
-        current_ts = tio.current_timestamp()
-        if current_ts - self.init_ts > self.standby_interval:
-            self.automatic_reconstruction()
-            self.images = []
-            self.depth_images = []
-
     
     def feed_image_depth(self, image_array, image_pose, timestamp):
         image_name = str(len(self.images)) + '_' + 'depth' + '.png'
@@ -143,11 +135,6 @@ class ColmapProject():
         img.set_extrinsics(image_pose)
         img.timestamp = timestamp
         self.depth_images.append(img)
-
-        # current_ts = tio.current_timestamp()
-        # if current_ts - self.init_ts > self.standby_interval:
-        #     self.automatic_reconstruction()
-        #     self.depth_images = []
     
     def create_cameras_txt(self):
         camera_opath = fio.createPath(fio.sep, [self.sparse_dir], 'cameras.txt')

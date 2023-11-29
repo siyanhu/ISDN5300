@@ -90,11 +90,11 @@ if __name__ == '__main__':
     
     parser.add_argument('--device_id', type=int, help='specify an id of the camera in integer type.') 
     parser.add_argument('--device_name', type=str, help='specify a name of the camera in non-integer type.') 
-    parser.add_argument('--collection_period', type=int, help='specify how many seconds required to do a full collection.') 
+    # parser.add_argument('--collection_period', type=int, help='specify how many seconds required to do a full collection.') 
     args = parser.parse_args()
 
     app = DemoApp()
     app.connect_to_device(dev_idx=args.device_id, dev_name=args.device_name)
-    clpproj = CLPModel.ColmapProject(args.device_id, args.device_name, 'home_streamming', args.collection_period)
+    clpproj = CLPModel.ColmapProject(args.device_id, args.device_name, 'home_streamming')
 
     app.start_processing_stream()

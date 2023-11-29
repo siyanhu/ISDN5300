@@ -12,3 +12,11 @@ final_project/sample_data
 final_project/tree
 final_project/output
 final_project/registration
+*.pptx
+final_project/output
+final_project/data
+final_project/registration/colmap_imgs
+final_project/registration/imgs
+*.pyc
+*/__pycache__
+*.pyc
